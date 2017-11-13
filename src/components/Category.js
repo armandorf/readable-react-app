@@ -9,11 +9,13 @@ export const Category = ({ category, match }) => (
     
     {/*<pre><h2><strong>Category:</strong></h2> {JSON.stringify(category, null, '  ')}</pre>*/}
     {console.log(JSON.stringify(category))}
-    <PostList posts={
-      category
-        ? Object.keys(category.posts).reduce((postsAcc, postId) => postsAcc.concat(category.posts[postId]), [])
-        : []
-    }></PostList>
+    <PostList
+      posts={
+        category
+          ? Object.keys(category.posts).reduce((postsAcc, postId) => postsAcc.concat(category.posts[postId]), [])
+          : []
+      }
+    />
     
   </div>
 
