@@ -30,14 +30,14 @@ class App extends Component {
               posts={this.props.allPosts}
             />
           )} />
-          <Route path='/category/:categoryPath' render={({ match }) => (
+          <Route exact path='/:categoryPath' render={({ match }) => (
             <Category
               category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
               match={match}
             />
           )}>
           </Route>
-          <Route path='/post/:postId' render={({ match }) => (
+          <Route path='/:categoryPath/:postId' render={({ match }) => (
             <Post
               post={this.props.allPosts.find(post => post.id === match.params.postId)}
               match={match}/>

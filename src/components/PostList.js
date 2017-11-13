@@ -26,8 +26,7 @@ class PostList extends Component {
         <ul>
           {this.props.posts && this.props.posts.map(post => (
             <li key={post.id}>
-              <Link to={`/post/${post.id}`}>{post.title}</Link> created on {new Date(post.timestamp).toDateString()} with vote score {post.voteScore}
-
+              <Link to={`/${post.category}/${post.id}`}>{post.title}</Link> created on {new Date(post.timestamp).toDateString()} with vote score {post.voteScore}
             </li>
           ))}
         </ul>
