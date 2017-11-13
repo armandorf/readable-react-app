@@ -20,7 +20,37 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: 1,
+    deleted: false
+  },
+  "6ni6ok3y345f1p33lnez": {
+    id: '6ni6ok3y345f1p33lnez',
+    timestamp: 1468479767225,
+    title: 'Redux Reducers in a Nutshell',
+    body: 'Everything you need to know to get started with using Redux\'s reducers.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: 26,
+    deleted: false
+  },
+  "6ni6ok3y98ff1p33lnez": {
+    id: '6ni6ok3y98ff1p33lnez',
+    timestamp: 1468479767999,
+    title: 'Redux Actioins in a Nutshell',
+    body: 'Everything you need to know to get started with using Redux\'s actions.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: 50,
+    deleted: false
+  },
+  "6ni6ok3okjmf1p33lnez": {
+    id: '6ni6ok3okjmf1p33lnez',
+    timestamp: 1468479767078,
+    title: 'Redux and React Router Intro',
+    body: 'Learn how to work with these 2.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: 2,
     deleted: false
   }
 }
