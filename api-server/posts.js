@@ -36,7 +36,7 @@ const defaultData = {
   "6ni6ok3y98ff1p33lnez": {
     id: '6ni6ok3y98ff1p33lnez',
     timestamp: 1468479767999,
-    title: 'Redux Actioins in a Nutshell',
+    title: 'Redux Actions in a Nutshell',
     body: 'Everything you need to know to get started with using Redux\'s actions.',
     author: 'thingone',
     category: 'redux',
