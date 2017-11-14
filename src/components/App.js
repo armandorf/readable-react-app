@@ -6,7 +6,7 @@ import Loading from 'react-loading';
 import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
-import { requestPostUpdate } from '../actions/posts';
+import { requestPostUpdate, requestPostCreate } from '../actions/posts';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
 import Post from './Post';
@@ -29,11 +29,13 @@ class App extends Component {
             <CategoryList
               categories={this.props.allCategories}
               posts={this.props.allPosts}
+              createPost={this.props.createPost}
             />
           )} />
           <Route exact path='/:categoryPath' render={({ match }) => (
             <Category
               category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
+              createPost={this.props.createPost}
               match={match}
             />
           )}>
@@ -80,9 +82,11 @@ function mapDispatchToProps(dispatch) {
   return {
     getAllCategoriesAndPosts: () => dispatch(fetchAllCategoriesAndPosts()),
     updatePost: (post) => dispatch(requestPostUpdate(post)),
+    createPost: (post) => dispatch(requestPostCreate(post)),
+
     // getAllPosts: () => dispatch(fetchAllPosts()),
     // getPostsForCategory: () => dispatch(fetchAllPostsForCategory()),
-    // savePost: (post) => dispatch(savePost(post)),
+
     // saveComment: (comment) => dispatch(saveComment(comment)),
     // getAllCommentsForPost: () => dispatch();
   };

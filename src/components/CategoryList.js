@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
-import { DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
 
 class CategoryList extends Component {
 
   render() {
-    const { categories, posts } = this.props;
+    const { categories, createPost, posts } = this.props;
 
     return (
       <div>
@@ -19,9 +18,13 @@ class CategoryList extends Component {
             </li>
           ))}
         </ul>
-
-        <PostList posts={posts} />
-  
+        
+        <PostList
+          posts={posts}
+          createPost={createPost}
+          categories={categories}
+        />
+        
       </div>
     );
   };
