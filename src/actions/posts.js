@@ -7,7 +7,6 @@ export const REQUEST_POSTS_FOR_CATEGORY = 'REQUEST_POSTS_FOR_CATEGORY';
 export const SELECT_POST = 'SELECT_POST';
 export const ADD_ALL_POSTS = 'ADD_ALL_POSTS';
 export const CREATE_POST = 'CREATE_POST';
-export const ADD_POST = 'ADD_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const UPVOTE_POST = 'UPVOTE_POST';
 export const DOWNVOTE_POST = 'DOWNVOTE_POST';
@@ -65,17 +64,7 @@ export const selectPost = post => ({
   selectedPost: post,
 });
 
-/**
- * NECESSARY DATA TO CREATE A POST
- *   - type: CREATE_POST,
- *   - id: post.id,
- *   - timestamp: post.timestamp,
- *   - title: post.title,
- *   - body: post.body,
- *   - author: post.author,
- *   - category: post.category,
- */
-export const createPost = post => dispatch => {
+export const requestPostCreate = post => dispatch => {
   // indicate that request is being sent to server
   dispatch(requestingItems());
 
@@ -91,7 +80,8 @@ export const createPost = post => dispatch => {
     error => console.log('An error occurred while creating post.', error),
   )
   .then(post => {
-    dispatch(addPost(post));
+    console.log('returned from server: ' + JSON.stringify(post));
+    dispatch(createPost(post));
 
     // signal async operation has ended
     dispatch(receivedItems());
@@ -100,10 +90,9 @@ export const createPost = post => dispatch => {
 
 /**
  * Attach newly created post to the store.
- * TODO: implement the reducer for this action!!!
  */
-export const addPost = post => ({
-  type: ADD_POST,
+export const createPost = post => ({
+  type: CREATE_POST,
   item: post,
 });
 
@@ -126,7 +115,7 @@ export const requestPostUpdate = post => dispatch => {
   return fetch(request)
     .then(
       response => response.json(),
-      error => console.log('An error occurred while creating post.', error),
+      error => console.log('An error occurred while updating post.', error),
     )
     .then(post => {
       dispatch(editPost(post));

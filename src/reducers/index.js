@@ -9,6 +9,7 @@ import {
   RECEIVE_POSTS,
   ADD_ALL_POSTS,
   SELECT_POST,
+  CREATE_POST,
   EDIT_POST,
   addAllPosts,
 } from '../actions/posts';
@@ -42,6 +43,9 @@ export const postsByCategory = (state = {}, action) => {
     case EDIT_POST:
       state[action.item.category].posts[action.item.id].title = action.item.title;
       state[action.item.category].posts[action.item.id].body = action.item.body;
+      return state;
+    case CREATE_POST:
+      state[action.item.category].posts[action.item.id] = action.item;
       return state;
     default:
       return state;
