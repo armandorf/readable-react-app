@@ -1,7 +1,8 @@
 export const baseUrl = 'http://localhost:3001';
 
+export const username = 'InternetCitizen1';
 export const headers = {
-  Authorization: 'user:passwd',
+  Authorization: `${username}:passwd`,
   'Content-Type': 'application/json',
 };
 
