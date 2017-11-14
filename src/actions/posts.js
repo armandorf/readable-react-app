@@ -100,10 +100,46 @@ export const createPost = post => dispatch => {
 
 /**
  * Attach newly created post to the store.
+ * TODO: implement the reducer for this action!!!
  */
-// TODO: implement the reducer for this action!!!
 export const addPost = post => ({
   type: ADD_POST,
   item: post,
 });
 
+export const requestPostUpdate = post => dispatch => {
+  // indicate that request is being sent to server
+  dispatch(requestingItems());
+
+  const request = new Request(`${baseUrl}/posts/${post.id}`, {
+    method: 'PUT',
+    headers: headers,
+    cache: 'default',
+    body: JSON.stringify(post),
+  });
+
+  // delete unnecessary fields (leave only title and body)
+  delete post.timestamp;
+  delete post.author;
+  delete post.category;
+
+  return fetch(request)
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred while creating post.', error),
+    )
+    .then(post => {
+      dispatch(editPost(post));
+
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
+};
+
+/**
+ * Edit post in the store.
+ */
+export const editPost = post => ({
+  type: EDIT_POST,
+  item: post,
+});

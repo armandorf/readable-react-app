@@ -26,3 +26,4 @@ export function posts(state = initialState, action) {
       return state;
   }
 }
+
