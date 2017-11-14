@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Post } from './Post';
 import sortBy from 'sort-by';
-import { DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
+import { DropdownButton, MenuItem, Media } from 'react-bootstrap';
 
 class PostList extends Component {
   state = {
@@ -23,13 +24,22 @@ class PostList extends Component {
           <MenuItem onSelect={this.sortPostsBy('-voteScore')}>Vote Score</MenuItem>
           <MenuItem onSelect={this.sortPostsBy('title')}>Title</MenuItem>
         </DropdownButton>
-        <ul>
+
+        <Media.List>
           {this.props.posts && this.props.posts.map(post => (
-            <li key={post.id}>
-              <Link to={`/${post.category}/${post.id}`}>{post.title}</Link> created on {new Date(post.timestamp).toDateString()} with vote score {post.voteScore}
-            </li>
+            <Media.ListItem key={post.id}>
+              <Post post={post} isListItem={true} />
+            </Media.ListItem>
           ))}
-        </ul>
+        </Media.List>
+        
+        {/*<ul>*/}
+          {/*{this.props.posts && this.props.posts.map(post => (*/}
+            {/*<li key={post.id}>*/}
+              {/*<Link to={`/${post.category}/${post.id}`}>{post.title}</Link> created on {new Date(post.timestamp).toDateString()} with vote score {post.voteScore}*/}
+            {/*</li>*/}
+          {/*))}*/}
+        {/*</ul>*/}
 
       </div>
     );

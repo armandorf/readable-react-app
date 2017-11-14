@@ -8,7 +8,6 @@ export const Category = ({ category, match }) => (
     <h1>{category ? category.name : ''}</h1>
     
     {/*<pre><h2><strong>Category:</strong></h2> {JSON.stringify(category, null, '  ')}</pre>*/}
-    {console.log(JSON.stringify(category))}
     <PostList
       posts={
         category

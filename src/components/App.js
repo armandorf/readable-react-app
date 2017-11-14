@@ -40,7 +40,8 @@ class App extends Component {
           <Route path='/:categoryPath/:postId' render={({ match }) => (
             <Post
               post={this.props.allPosts.find(post => post.id === match.params.postId)}
-              match={match}/>
+              match={match}
+            />
           )}>
           </Route>
         </Switch>
