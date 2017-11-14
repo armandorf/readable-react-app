@@ -2,3 +2,23 @@
   background: none;
   border: none;
 }
+
+.vote-score {
+  vertical-align: middle;
+  text-align: center;
+  padding-left: 15px;
+}
+
+.item-metadata {
+  color: #888;
+  font-size: small;
+  margin-bottom: 5px;
+}
+
+.comments-total {
+  font-size: small;
+}
+
+.post-list {
+  margin-top: 15px;
+}

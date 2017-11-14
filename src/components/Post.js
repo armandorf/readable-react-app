@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Media, Button, Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import FaAngleDown from 'react-icons/lib/fa/angle-down';
+import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
 class Post extends Component {
 
@@ -105,17 +107,16 @@ class Post extends Component {
         {(isListItem && post) &&
           <Media>
             <Media.Left>
-              <div>
-  
+              <div className='vote-score'>
+                  <FaAngleUp size={25}/>{post.voteScore}<FaAngleDown size={25}/>
               </div>
             </Media.Left>
             <Media.Body>
               <Media.Heading>
                 <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
               </Media.Heading>
-              <p>created on {new Date(post.timestamp).toDateString()} with vote
-                score {post.voteScore}</p>
-              <p>{post.body}</p>
+              <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} by {post.author}</p>
+              <p className='comments-total'>Number of comments</p>
             </Media.Body>
           </Media>
         }
