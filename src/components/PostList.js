@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Post } from './Post';
+import Post from './Post';
 import sortBy from 'sort-by';
 import { DropdownButton, MenuItem, Media } from 'react-bootstrap';
 
@@ -19,7 +19,7 @@ class PostList extends Component {
       <div>
 
         <h1>Posts</h1>
-        <DropdownButton bsSize="small" bsStyle='default' title='Sort by' id='sort-by-buttons'>
+        <DropdownButton dropup bsSize="small" bsStyle='default' title='Sort by' id='sort-by-buttons'>
           <MenuItem onSelect={this.sortPostsBy('timestamp')}>Date Created</MenuItem>
           <MenuItem onSelect={this.sortPostsBy('-voteScore')}>Vote Score</MenuItem>
           <MenuItem onSelect={this.sortPostsBy('title')}>Title</MenuItem>

@@ -6,9 +6,10 @@ import Loading from 'react-loading';
 import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
+import { requestPostUpdate } from '../actions/posts';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
-import { Post } from './Post';
+import Post from './Post';
 import { options, baseUrl, headers } from '../utils/requestOptions';
 
 class App extends Component {
@@ -40,6 +41,7 @@ class App extends Component {
           <Route path='/:categoryPath/:postId' render={({ match }) => (
             <Post
               post={this.props.allPosts.find(post => post.id === match.params.postId)}
+              updatePost={this.props.updatePost}
               match={match}
             />
           )}>
@@ -77,6 +79,7 @@ function mapStateToProps({ postsByCategory, isFetching, selectedCategory, select
 function mapDispatchToProps(dispatch) {
   return {
     getAllCategoriesAndPosts: () => dispatch(fetchAllCategoriesAndPosts()),
+    updatePost: (post) => dispatch(requestPostUpdate(post)),
     // getAllPosts: () => dispatch(fetchAllPosts()),
     // getPostsForCategory: () => dispatch(fetchAllPostsForCategory()),
     // savePost: (post) => dispatch(savePost(post)),
