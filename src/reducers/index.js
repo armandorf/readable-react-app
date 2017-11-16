@@ -47,6 +47,11 @@ export const postsByCategory = (state = {}, action) => {
     case CREATE_POST:
       state[action.item.category].posts[action.item.id] = action.item;
       return state;
+    case RECEIVE_POSTS:
+      action.items.forEach(comment => {
+        state[action.post.category].posts[action.post.id].comments.push(comment);
+      });
+      return state;
     default:
       return state;
   }

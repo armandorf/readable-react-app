@@ -12,7 +12,7 @@ export const UPVOTE_POST = 'UPVOTE_POST';
 export const DOWNVOTE_POST = 'DOWNVOTE_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 
-export const receivePosts = (posts, category) => ({
+export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
   items: posts,
 });
@@ -39,7 +39,6 @@ export const fetchAllPosts = () => dispatch => {
     });
 };
 
-// TODO: implement this action
 export const fetchPostsForCategory = category => dispatch => {
   // indicate that items are being fetched
   dispatch(requestingItems());
