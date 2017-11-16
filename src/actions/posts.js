@@ -1,5 +1,6 @@
 import { baseUrl, httpGetRequestOptions, headers } from '../utils/requestOptions';
 import { requestingItems, receivedItems, } from './fetchingStatus';
+import { fetchCommentsForPost } from './comments';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -36,6 +37,11 @@ export const fetchAllPosts = () => dispatch => {
 
       // signal async operation has ended
       dispatch(receivedItems());
+
+      // fetch all comments for each post and attach them to the store
+      posts.forEach(post => {
+        dispatch(fetchCommentsForPost(post));
+      });
     });
 };
 

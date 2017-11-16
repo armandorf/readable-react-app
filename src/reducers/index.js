@@ -15,6 +15,7 @@ import {
 } from '../actions/posts';
 import {
   SELECT_COMMENT,
+  RECEIVE_COMMENTS,
 } from '../actions/comments';
 import {
   ASYNC_OPERATION_STARTED,
@@ -36,7 +37,7 @@ export const postsByCategory = (state = {}, action) => {
       };
     case RECEIVE_POSTS:
       action.items.forEach(post => {
-        post['comments'] = {};
+        post['comments'] = [];
         state[post.category].posts[post.id] = post;
       });
       return state;
@@ -46,9 +47,12 @@ export const postsByCategory = (state = {}, action) => {
       return state;
     case CREATE_POST:
       state[action.item.category].posts[action.item.id] = action.item;
+      state[action.item.category].posts[action.item.id]["comments"] = [];
       return state;
-    case RECEIVE_POSTS:
+    case RECEIVE_COMMENTS:
+      console.log(action.items);
       action.items.forEach(comment => {
+        // console.log(state[action.post.category].posts[action.post.id]);
         state[action.post.category].posts[action.post.id].comments.push(comment);
       });
       return state;

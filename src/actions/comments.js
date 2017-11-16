@@ -13,7 +13,7 @@ export const fetchCommentsForPost = post => dispatch => {
   // indicate that items are being fetched
   dispatch(requestingItems());
 
-  return fetch(`${baseUrl}/${post.id}/comments`, httpGetRequestOptions)
+  return fetch(`${baseUrl}/posts/${post.id}/comments`, httpGetRequestOptions)
     .then(
       response => response.json(),
       error => console.log('An error occurred while retrieving comments for given post.', error),
@@ -29,7 +29,7 @@ export const fetchCommentsForPost = post => dispatch => {
 export const receiveComments = (comments, post) => ({
   type: RECEIVE_COMMENTS,
   items: comments,
-  post: post, // a full post to easily access store
+  post: post, // a full post to easily access store's properties
 });
 
 export const selectComment = comment => ({
