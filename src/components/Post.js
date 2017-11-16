@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Media, Button, Modal, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Media,
+         Button,
+         Modal,
+         FormGroup,
+         ControlLabel,
+         FormControl,
+         DropdownButton,
+         MenuItem } from 'react-bootstrap';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
@@ -45,6 +52,10 @@ class Post extends Component {
     this.closeModal();
   };
 
+  deletePost = () => {
+    // TODO: route to list of posts in this post's class after deletion
+  };
+
   render() {
     const { post, isListItem, updatePost } = this.props;
 
@@ -57,11 +68,11 @@ class Post extends Component {
             <span>
               <h1>
                 {post.title}
-                <Button
-                  bsStyle="link"
-                  onClick={this.openModal}>
-                  (edit)
-                </Button>
+                <span> </span>
+                <DropdownButton bsSize="small" bsStyle='default' title='Manage' id='sort-by-buttons'>
+                  <MenuItem onSelect={this.openModal}>Edit</MenuItem>
+                  <MenuItem onSelect={this.deletePost}>Delete</MenuItem>
+                </DropdownButton>
               </h1>
             </span>
             <p>{post.body}</p>
@@ -97,7 +108,7 @@ class Post extends Component {
               </Modal.Footer>
             </Modal>
 
-            <h4>Comments go here!!!</h4>
+            <h4>List of comments go here!!!</h4>
 
           </div>
 
