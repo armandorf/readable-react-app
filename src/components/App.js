@@ -7,6 +7,7 @@ import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
 import { requestPostUpdate, requestPostCreate } from '../actions/posts';
+import { fetchCommentsForPost } from '../actions/comments';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
 import Post from './Post';
@@ -83,10 +84,10 @@ function mapDispatchToProps(dispatch) {
     getAllCategoriesAndPosts: () => dispatch(fetchAllCategoriesAndPosts()),
     updatePost: (post) => dispatch(requestPostUpdate(post)),
     createPost: (post) => dispatch(requestPostCreate(post)),
+    getCommentsForPost: (post) => dispatch(fetchCommentsForPost(post)),
 
     // getAllPosts: () => dispatch(fetchAllPosts()),
     // getPostsForCategory: () => dispatch(fetchAllPostsForCategory()),
-
     // saveComment: (comment) => dispatch(saveComment(comment)),
     // getAllCommentsForPost: () => dispatch();
   };
