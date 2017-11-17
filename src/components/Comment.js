@@ -1,7 +1,18 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { ButtonToolbar,
+  DropdownButton,
+  MenuItem,
+  Media,
+  Button,
+  Modal,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock } from 'react-bootstrap';
+import FaAngleDown from 'react-icons/lib/fa/angle-down';
+import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
-export const Comment = ({ comment }) => (
+export const Comment = ({ comment, isListItem }) => (
 
   <div>
     <h4>{comment ? comment.name : ''}</h4>
@@ -15,8 +26,9 @@ export const Comment = ({ comment }) => (
       </Media.Left>
       <Media.Body>
         {/*<Media.Heading>*/}
-          {/*<Link to={`/${comment.category}/${comment.id}`}>{comment.title}</Link>*/}
+          {/*{comment.body}*/}
         {/*</Media.Heading>*/}
+        {comment.body}
         <p className='item-metadata'>created on {(new Date(comment.timestamp)).toDateString()} by {comment.author}</p>
       </Media.Body>
     </Media>
@@ -25,3 +37,5 @@ export const Comment = ({ comment }) => (
   </div>
 
 );
+
+export default Comment;

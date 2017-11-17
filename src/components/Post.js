@@ -8,6 +8,7 @@ import { Media,
          FormControl,
          DropdownButton,
          MenuItem } from 'react-bootstrap';
+import CommentList from './CommentList';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
@@ -61,7 +62,7 @@ class Post extends Component {
 
     return (
       <div>
-        
+
         {/* Detail View */}
         {(!isListItem && post) &&
           <div>
@@ -75,9 +76,18 @@ class Post extends Component {
                 </DropdownButton>
               </h1>
             </span>
-            <p>{post.body}</p>
-            <p>created on {new Date(post.timestamp).toDateString()} with vote score {post.voteScore}</p>
+            <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} by {post.author}</p>
+            {post.comments && post.comments.length > 0
+              ? <p className='comments-total'>{post.comments.length} comments</p>
+              : <p className='comments-total'>No comments yet</p>}
+            <p className='post-body'>{post.body}</p>
 
+            {/*<h4>List of comments go here!!!</h4>*/}
+            <CommentList
+              comments={post.comments}
+            />
+            
+            
             <Modal show={this.state.showModal} onHide={this.closeModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit post</Modal.Title>
@@ -108,8 +118,6 @@ class Post extends Component {
               </Modal.Footer>
             </Modal>
 
-            <h4>List of comments go here!!!</h4>
-
           </div>
 
         }
@@ -127,7 +135,9 @@ class Post extends Component {
                 <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
               </Media.Heading>
               <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} by {post.author}</p>
-              <p className='comments-total'>Number of comments</p>
+              {post.comments && post.comments.length > 0
+                ? <p className='comments-total'>{post.comments.length} comments</p>
+                : <p className='comments-total'>No comments yet</p>}
             </Media.Body>
           </Media>
         }
