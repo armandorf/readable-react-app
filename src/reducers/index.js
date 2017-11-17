@@ -16,6 +16,7 @@ import {
 import {
   SELECT_COMMENT,
   RECEIVE_COMMENTS,
+  EDIT_COMMENT,
 } from '../actions/comments';
 import {
   ASYNC_OPERATION_STARTED,
@@ -54,6 +55,16 @@ export const postsByCategory = (state = {}, action) => {
       action.items.forEach(comment => {
         state[action.post.category].posts[action.post.id].comments.push(comment);
       });
+      return state;
+    case EDIT_COMMENT:
+      const comment = state[action.post.category].posts[action.post.id].comments.find(comment => action.item.id === comment.id);
+      console.log(comment);
+      console.log(action.item.voteScore);
+      if (comment) {
+        comment.voteScore = action.item.voteScore;
+        comment.body = action.item.body;
+        comment.timestamp = action.item.timestamp;
+      }
       return state;
     default:
       return state;

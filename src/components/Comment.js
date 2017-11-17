@@ -12,7 +12,7 @@ import { ButtonToolbar,
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
-export const Comment = ({ comment, isListItem }) => (
+export const Comment = ({ post, comment, isListItem, voteComment }) => (
 
   <div>
     <h4>{comment ? comment.name : ''}</h4>
@@ -21,15 +21,18 @@ export const Comment = ({ comment, isListItem }) => (
     <Media>
       <Media.Left>
         <div className='vote-score'>
-          <FaAngleUp size={25}/>{comment.voteScore}<FaAngleDown size={25}/>
+          <button onClick={voteComment ? () => voteComment(post, comment, 'upVote') : () => {}} className='icon-btn'>
+            <FaAngleUp size={25}/>
+          </button>
+          {comment.voteScore}
+          <button onClick={voteComment ? () => voteComment(post, comment, 'downVote') : () => {}} className='icon-btn'>
+            <FaAngleDown size={25}/>
+          </button>
         </div>
       </Media.Left>
       <Media.Body>
-        {/*<Media.Heading>*/}
-          {/*{comment.body}*/}
-        {/*</Media.Heading>*/}
         {comment.body}
-        <p className='item-metadata'>created on {(new Date(comment.timestamp)).toDateString()} by {comment.author}</p>
+        <p className='item-metadata'>updated on {(new Date(comment.timestamp)).toDateString()} by {comment.author}</p>
       </Media.Body>
     </Media>
     }

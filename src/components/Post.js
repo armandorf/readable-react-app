@@ -82,11 +82,12 @@ class Post extends Component {
               : <p className='comments-total'>No comments yet</p>}
             <p className='post-body'>{post.body}</p>
 
-            {/*<h4>List of comments go here!!!</h4>*/}
+            {/* List of Comments */}
             <CommentList
+              post={post}
               comments={post.comments}
+              voteComment={this.props.voteComment}
             />
-            
             
             <Modal show={this.state.showModal} onHide={this.closeModal}>
               <Modal.Header closeButton>

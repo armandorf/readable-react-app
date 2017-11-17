@@ -9,8 +9,6 @@ export const SELECT_POST = 'SELECT_POST';
 export const ADD_ALL_POSTS = 'ADD_ALL_POSTS';
 export const CREATE_POST = 'CREATE_POST';
 export const EDIT_POST = 'EDIT_POST';
-export const UPVOTE_POST = 'UPVOTE_POST';
-export const DOWNVOTE_POST = 'DOWNVOTE_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 
 export const receivePosts = posts => ({

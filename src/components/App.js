@@ -7,7 +7,7 @@ import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
 import { requestPostUpdate, requestPostCreate, requestPostVote } from '../actions/posts';
-import { fetchCommentsForPost } from '../actions/comments';
+import { fetchCommentsForPost, requestCommentVote } from '../actions/comments';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
 import Post from './Post';
@@ -32,6 +32,7 @@ class App extends Component {
               posts={this.props.allPosts}
               createPost={this.props.createPost}
               votePost={this.props.votePost}
+              voteComment={this.props.voteComment}
             />
           )} />
           <Route exact path='/:categoryPath' render={({ match }) => (
@@ -39,6 +40,7 @@ class App extends Component {
               category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
               createPost={this.props.createPost}
               votePost={this.props.votePost}
+              voteComment={this.props.voteComment}
               match={match}
             />
           )}>
@@ -48,6 +50,7 @@ class App extends Component {
               post={this.props.allPosts.find(post => post.id === match.params.postId)}
               updatePost={this.props.updatePost}
               votePost={this.props.votePost}
+              voteComment={this.props.voteComment}
               match={match}
             />
           )}>
@@ -89,7 +92,7 @@ function mapDispatchToProps(dispatch) {
     createPost: post => dispatch(requestPostCreate(post)),
     getCommentsForPost: (post) => dispatch(fetchCommentsForPost(post)),
     votePost: (post, value) => dispatch(requestPostVote(post, value)),
-    // voteComment: (post, value) => dispatch(requestCommentVote(comment, value)),
+    voteComment: (post, comment, value) => dispatch(requestCommentVote(post, comment, value)),
   };
 }
 

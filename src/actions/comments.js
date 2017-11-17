@@ -1,4 +1,4 @@
-import { baseUrl, httpGetRequestOptions } from '../utils/requestOptions';
+import { baseUrl, httpGetRequestOptions, headers } from '../utils/requestOptions';
 import { requestingItems, receivedItems, } from './fetchingStatus';
 
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
@@ -35,4 +35,36 @@ export const receiveComments = (comments, post) => ({
 export const selectComment = comment => ({
   type: SELECT_COMMENT,
   selectedComment: comment,
+});
+
+export const requestCommentVote = (post, comment, value) => dispatch => {
+  // indicate that request is being sent to server
+  dispatch(requestingItems());
+
+  const request = new Request(`${baseUrl}/comments/${comment.id}`, {
+    method: 'POST',
+    headers: headers,
+    cache: 'default',
+    body: JSON.stringify({ option: value }),
+  });
+  return fetch(request)
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred while voting the comment.', error),
+    )
+    .then(comment => {
+      dispatch(editComment(post, comment));
+
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
+};
+
+/**
+ * Edit comment in the store.
+ */
+export const editComment = (post, comment) => ({
+  type: EDIT_COMMENT,
+  post: post,
+  item: comment,
 });
