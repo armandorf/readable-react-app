@@ -6,7 +6,7 @@ import Loading from 'react-loading';
 import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
-import { requestPostUpdate, requestPostCreate } from '../actions/posts';
+import { requestPostUpdate, requestPostCreate, requestPostVote } from '../actions/posts';
 import { fetchCommentsForPost } from '../actions/comments';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
@@ -31,12 +31,14 @@ class App extends Component {
               categories={this.props.allCategories}
               posts={this.props.allPosts}
               createPost={this.props.createPost}
+              votePost={this.props.votePost}
             />
           )} />
           <Route exact path='/:categoryPath' render={({ match }) => (
             <Category
               category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
               createPost={this.props.createPost}
+              votePost={this.props.votePost}
               match={match}
             />
           )}>
@@ -45,6 +47,7 @@ class App extends Component {
             <Post
               post={this.props.allPosts.find(post => post.id === match.params.postId)}
               updatePost={this.props.updatePost}
+              votePost={this.props.votePost}
               match={match}
             />
           )}>
@@ -82,14 +85,11 @@ function mapStateToProps({ postsByCategory, isFetching, selectedCategory, select
 function mapDispatchToProps(dispatch) {
   return {
     getAllCategoriesAndPosts: () => dispatch(fetchAllCategoriesAndPosts()),
-    updatePost: (post) => dispatch(requestPostUpdate(post)),
-    createPost: (post) => dispatch(requestPostCreate(post)),
+    updatePost: post => dispatch(requestPostUpdate(post)),
+    createPost: post => dispatch(requestPostCreate(post)),
     getCommentsForPost: (post) => dispatch(fetchCommentsForPost(post)),
-
-    // getAllPosts: () => dispatch(fetchAllPosts()),
-    // getPostsForCategory: () => dispatch(fetchAllPostsForCategory()),
-    // saveComment: (comment) => dispatch(saveComment(comment)),
-    // getAllCommentsForPost: () => dispatch();
+    votePost: (post, value) => dispatch(requestPostVote(post, value)),
+    // voteComment: (post, value) => dispatch(requestCommentVote(comment, value)),
   };
 }
 

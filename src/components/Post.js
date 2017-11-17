@@ -58,7 +58,7 @@ class Post extends Component {
   };
 
   render() {
-    const { post, isListItem, updatePost } = this.props;
+    const { post, isListItem, updatePost, votePost } = this.props;
 
     return (
       <div>
@@ -127,7 +127,13 @@ class Post extends Component {
           <Media>
             <Media.Left>
               <div className='vote-score'>
-                  <FaAngleUp size={25}/>{post.voteScore}<FaAngleDown size={25}/>
+                <button onClick={votePost ? () => votePost(post, 'upVote') : () => {}} className='icon-btn'>
+                  <FaAngleUp size={25}/>
+                </button>
+                {post.voteScore}
+                <button onClick={votePost ? () => votePost(post, 'downVote') : () => {}} className='icon-btn'>
+                  <FaAngleDown size={25}/>
+                </button>
               </div>
             </Media.Left>
             <Media.Body>

@@ -100,7 +100,7 @@ class PostList extends Component {
         <Media.List className='post-list'>
           {this.props.posts && this.props.posts.map(post => (
             <Media.ListItem key={post.id}>
-              <Post post={post} isListItem={true} />
+              <Post post={post} isListItem={true} votePost={this.props.votePost}/>
             </Media.ListItem>
           ))}
         </Media.List>

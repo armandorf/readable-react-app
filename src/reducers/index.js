@@ -44,6 +44,7 @@ export const postsByCategory = (state = {}, action) => {
     case EDIT_POST:
       state[action.item.category].posts[action.item.id].title = action.item.title;
       state[action.item.category].posts[action.item.id].body = action.item.body;
+      state[action.item.category].posts[action.item.id].voteScore = action.item.voteScore;
       return state;
     case CREATE_POST:
       state[action.item.category].posts[action.item.id] = action.item;

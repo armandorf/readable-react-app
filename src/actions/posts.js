@@ -105,18 +105,17 @@ export const requestPostUpdate = post => dispatch => {
   // indicate that request is being sent to server
   dispatch(requestingItems());
 
-  const request = new Request(`${baseUrl}/posts/${post.id}`, {
-    method: 'PUT',
-    headers: headers,
-    cache: 'default',
-    body: JSON.stringify(post),
-  });
-
   // delete unnecessary fields (leave only title and body)
   delete post.timestamp;
   delete post.author;
   delete post.category;
-
+  // build request object
+  const request = new Request(`${baseUrl}/posts/${post.id}`, {
+    method: 'POST',
+    headers: headers,
+    cache: 'default',
+    body: JSON.stringify(post),
+  });
   return fetch(request)
     .then(
       response => response.json(),
@@ -137,3 +136,26 @@ export const editPost = post => ({
   type: EDIT_POST,
   item: post,
 });
+
+export const requestPostVote = (post, value) => dispatch => {
+  // indicate that request is being sent to server
+  dispatch(requestingItems());
+
+  const request = new Request(`${baseUrl}/posts/${post.id}`, {
+    method: 'POST',
+    headers: headers,
+    cache: 'default',
+    body: JSON.stringify({ option: value }),
+  });
+  return fetch(request)
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred while voting the post.', error),
+    )
+    .then(post => {
+      dispatch(editPost(post));
+
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
+};

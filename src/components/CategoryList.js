@@ -5,7 +5,7 @@ import PostList from './PostList';
 class CategoryList extends Component {
 
   render() {
-    const { categories, createPost, posts } = this.props;
+    const { categories, createPost, posts, votePost } = this.props;
 
     return (
       <div>
@@ -23,6 +23,7 @@ class CategoryList extends Component {
           posts={posts}
           createPost={createPost}
           categories={categories}
+          votePost={votePost}
         />
         
       </div>
