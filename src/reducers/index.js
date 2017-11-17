@@ -50,9 +50,7 @@ export const postsByCategory = (state = {}, action) => {
       state[action.item.category].posts[action.item.id]["comments"] = [];
       return state;
     case RECEIVE_COMMENTS:
-      console.log(action.items);
       action.items.forEach(comment => {
-        // console.log(state[action.post.category].posts[action.post.id]);
         state[action.post.category].posts[action.post.id].comments.push(comment);
       });
       return state;
