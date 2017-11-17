@@ -83,7 +83,6 @@ export const requestPostCreate = post => dispatch => {
     error => console.log('An error occurred while creating post.', error),
   )
   .then(post => {
-    console.log('returned from server: ' + JSON.stringify(post));
     dispatch(createPost(post));
 
     // signal async operation has ended
@@ -107,13 +106,17 @@ export const requestPostUpdate = post => dispatch => {
   delete post.timestamp;
   delete post.author;
   delete post.category;
+  delete post.voteScore;
+  delete post.comments;
+  delete post.deleted;
   // build request object
   const request = new Request(`${baseUrl}/posts/${post.id}`, {
-    method: 'POST',
+    method: 'PUT',
     headers: headers,
     cache: 'default',
     body: JSON.stringify(post),
   });
+  console.log(post);
   return fetch(request)
     .then(
       response => response.json(),

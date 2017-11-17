@@ -46,10 +46,12 @@ class Post extends Component {
     });
   };
 
-  updatePostAndCloseModal = post => () => {
-    this.props.post.title = this.state.title;
-    this.props.post.body = this.state.body;
-    this.props.updatePost(post);
+  updatePostAndCloseModal = (post) => () => {
+    this.props.updatePost({
+      ...post,
+      title: this.state.title,
+      body: this.state.body,
+    });
     this.closeModal();
   };
 
