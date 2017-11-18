@@ -19,14 +19,20 @@ import Comment from './Comment';
 class CommentList extends Component {
 
   render() {
-    const { post, comments, voteComment } = this.props;
+    const { post, comments, voteComment, deleteComment } = this.props;
 
     return (
       <div>
         <Media.List className='post-list'>
           {comments && comments.map(comment => (
             <Media.ListItem key={comment.id}>
-              <Comment post={post} comment={comment} isListItem={true} voteComment={voteComment} />
+              <Comment
+                post={post}
+                comment={comment}
+                isListItem={true}
+                voteComment={voteComment}
+                deleteComment={deleteComment}
+              />
             </Media.ListItem>
           ))}
         </Media.List>

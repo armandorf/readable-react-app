@@ -3,6 +3,14 @@
   border: none;
 }
 
+.btn-link {
+  border: none;
+  font-size: small;
+  padding-left: 0px;
+  padding-top:1px;
+  padding-bottom: 1px;
+}
+
 .vote-score {
   vertical-align: middle;
   text-align: center;

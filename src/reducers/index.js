@@ -70,14 +70,14 @@ export const postsByCategory = (state = {}, action) => {
     case DELETE_COMMENT:
       return {
         ...state,
-        [state[action.post.category]]: {
+        [action.post.category]: {
           ...state[action.post.category],
-          [state[action.post.category]['posts']]: {
+          'posts': {
             ...state[action.post.category]['posts'],
-            [state[action.post.category]['posts'][action.post.id]]: {
+            [action.post.id]: {
               ...state[action.post.category]['posts'][action.post.id],
-              [state[action.post.category]['posts'][action.post.id]['comments']]: state[action.post.category]['posts'][action.post.id]['comments'].filter(comment => comment.id !== action.item.id),
-            }
+              'comments': state[action.post.category]['posts'][action.post.id]['comments'].filter(comment => comment.id !== action.item.id),
+            },
           },
         },
       };

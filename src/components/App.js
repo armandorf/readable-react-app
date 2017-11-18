@@ -7,7 +7,7 @@ import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
 import { requestPostUpdate, requestPostCreate, requestPostVote, requestPostDelete } from '../actions/posts';
-import { fetchCommentsForPost, requestCommentVote } from '../actions/comments';
+import { fetchCommentsForPost, requestCommentVote, requestCommentDelete } from '../actions/comments';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
 import Post from './Post';
@@ -52,6 +52,7 @@ class App extends Component {
               votePost={this.props.votePost}
               voteComment={this.props.voteComment}
               deletePost={this.props.deletePost}
+              deleteComment={this.props.deleteComment}
               match={match}
               history={history}
             />
@@ -96,6 +97,7 @@ function mapDispatchToProps(dispatch) {
     votePost: (post, value) => dispatch(requestPostVote(post, value)),
     voteComment: (post, comment, value) => dispatch(requestCommentVote(post, comment, value)),
     deletePost: post => dispatch(requestPostDelete(post)),
+    deleteComment: (post, comment) => dispatch(requestCommentDelete(post, comment)),
   };
 }
 

@@ -67,7 +67,7 @@ class Post extends Component {
   };
 
   render() {
-    const { post, isListItem, updatePost, votePost, deletePost } = this.props;
+    const { post, isListItem, updatePost, votePost, deletePost, deleteComment } = this.props;
 
     return (
       <div>
@@ -98,6 +98,7 @@ class Post extends Component {
               post={post}
               comments={post.comments}
               voteComment={this.props.voteComment}
+              deleteComment={this.props.deleteComment}
             />
 
             {/* Modal for editing a Post */}
