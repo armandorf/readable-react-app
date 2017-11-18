@@ -1,6 +1,8 @@
 import React from 'react';
-import { ButtonToolbar,
+import { 
+  ButtonToolbar,
   DropdownButton,
+  ButtonGroup,
   MenuItem,
   Media,
   Button,
@@ -12,33 +14,46 @@ import { ButtonToolbar,
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
-export const Comment = ({ post, comment, isListItem, voteComment }) => (
+export const Comment = ({ post, comment, isListItem, voteComment, deleteComment }) => (
 
   <div>
+
     <h4>{comment ? comment.name : ''}</h4>
 
     {comment &&
-    <Media>
-      <Media.Left>
-        <div className='vote-score'>
-          <button onClick={voteComment ? () => voteComment(post, comment, 'upVote') : () => {}} className='icon-btn'>
-            <FaAngleUp size={25}/>
-          </button>
-          {comment.voteScore}
-          <button onClick={voteComment ? () => voteComment(post, comment, 'downVote') : () => {}} className='icon-btn'>
-            <FaAngleDown size={25}/>
-          </button>
-        </div>
-      </Media.Left>
-      <Media.Body>
-        <p className='item-content'>{comment.body}</p>
-        <p className='item-metadata'>updated on {(new Date(comment.timestamp)).toDateString()} by {comment.author}</p>
-        <div>
-          <span className='comment-edit-section'>Edit</span>
-          <span> </span>
-          <span className='comment-edit-section'>Delete</span></div>
-      </Media.Body>
-    </Media>
+      <Media>
+        <Media.Left>
+          <div className='vote-score'>
+            <button onClick={voteComment ? () => voteComment(post, comment, 'upVote') : () => {}} className='icon-btn'>
+              <FaAngleUp size={25}/>
+            </button>
+            {comment.voteScore}
+            <button onClick={voteComment ? () => voteComment(post, comment, 'downVote') : () => {}} className='icon-btn'>
+              <FaAngleDown size={25}/>
+            </button>
+          </div>
+        </Media.Left>
+        <Media.Body>
+          <p className='item-content'>{comment.body}</p>
+          <p className='item-metadata'>updated on {(new Date(comment.timestamp)).toDateString()} by {comment.author}</p>
+          <ButtonGroup>
+            <Button
+              className='btn-link'
+              bsSize="small"
+              bsStyle="link"
+              onClick={() => {}}>
+              Edit
+            </Button>
+            <Button
+              className='btn-link'
+              bsSize="small"
+              bsStyle="link"
+              onClick={deleteComment ? () => deleteComment(post, comment) : () => {}}>
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Media.Body>
+      </Media>
     }
 
   </div>
