@@ -102,12 +102,14 @@ class PostList extends Component {
               <Post post={post}
                     isListItem={true}
                     votePost={this.props.votePost}
+                    createComment={this.props.createComment}
                     voteComment={this.props.voteComment}
               />
             </Media.ListItem>
           ))}
         </Media.List>
 
+        {/* Modal for editing a Post */}
         <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Edit post</Modal.Title>

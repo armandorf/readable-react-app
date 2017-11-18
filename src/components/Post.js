@@ -61,18 +61,22 @@ class Post extends Component {
     this.props.history.push(`/${post.category}`);
   };
 
-  addCommentAndCloseModal = comment => () => {
-    // this.props.addComment(comment);
-    this.closeModal();
-  };
-
   render() {
-    const { post, isListItem, updatePost, votePost, deletePost, deleteComment } = this.props;
+    const {
+      post,
+      isListItem,
+      updatePost,
+      votePost,
+      deletePost,
+      createComment,
+      voteComment,
+      deleteComment,
+    } = this.props;
 
     return (
       <div>
 
-        {/* Detail View */}
+        {/* Post Detail View */}
         {(!isListItem && post) &&
           <div>
             <span>
@@ -82,7 +86,6 @@ class Post extends Component {
                 <DropdownButton bsSize="small" bsStyle='default' title='Manage' id='sort-by-buttons'>
                   <MenuItem onSelect={this.openModal}>Edit</MenuItem>
                   <MenuItem onSelect={this.deletePost(post)}>Delete</MenuItem>
-                  <MenuItem onSelect={() => {}}>Add Comment</MenuItem>
                 </DropdownButton>
               </h1>
             </span>
@@ -93,12 +96,12 @@ class Post extends Component {
             <p className='post-body'>{post.body}</p>
 
             {/* List of Comments */}
-            <h2>Comments</h2>
             <CommentList
               post={post}
               comments={post.comments}
-              voteComment={this.props.voteComment}
-              deleteComment={this.props.deleteComment}
+              createComment={createComment}
+              voteComment={voteComment}
+              deleteComment={deleteComment}
             />
 
             {/* Modal for editing a Post */}
@@ -136,7 +139,7 @@ class Post extends Component {
 
         }
 
-        {/* List Item View*/}
+        {/* Post List Item View */}
         {(isListItem && post) &&
           <Media>
             <Media.Left>

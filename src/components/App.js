@@ -6,8 +6,16 @@ import Loading from 'react-loading';
 import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
-import { requestPostUpdate, requestPostCreate, requestPostVote, requestPostDelete } from '../actions/posts';
-import { fetchCommentsForPost, requestCommentVote, requestCommentDelete } from '../actions/comments';
+import {
+  requestPostUpdate,
+  requestPostCreate,
+  requestPostVote,
+  requestPostDelete } from '../actions/posts';
+import {
+  fetchCommentsForPost,
+  requestCreateComment,
+  requestCommentVote,
+  requestCommentDelete } from '../actions/comments';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
 import Post from './Post';
@@ -40,6 +48,7 @@ class App extends Component {
               category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
               createPost={this.props.createPost}
               votePost={this.props.votePost}
+              createComment={this.props.createComment}
               voteComment={this.props.voteComment}
               match={match}
             />
@@ -50,6 +59,7 @@ class App extends Component {
               post={this.props.allPosts.find(post => post.id === match.params.postId)}
               updatePost={this.props.updatePost}
               votePost={this.props.votePost}
+              createComment={this.props.createComment}
               voteComment={this.props.voteComment}
               deletePost={this.props.deletePost}
               deleteComment={this.props.deleteComment}
@@ -95,6 +105,7 @@ function mapDispatchToProps(dispatch) {
     createPost: post => dispatch(requestPostCreate(post)),
     getCommentsForPost: (post) => dispatch(fetchCommentsForPost(post)),
     votePost: (post, value) => dispatch(requestPostVote(post, value)),
+    createComment: (post, comment) => dispatch(requestCreateComment(post, comment)),
     voteComment: (post, comment, value) => dispatch(requestCommentVote(post, comment, value)),
     deletePost: post => dispatch(requestPostDelete(post)),
     deleteComment: (post, comment) => dispatch(requestCommentDelete(post, comment)),

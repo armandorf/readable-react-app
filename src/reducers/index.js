@@ -15,6 +15,7 @@ import {
 import {
   SELECT_COMMENT,
   RECEIVE_COMMENTS,
+  CREATE_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
 } from '../actions/comments';
@@ -56,13 +57,25 @@ export const postsByCategory = (state = {}, action) => {
         state[action.post.category].posts[action.post.id].comments.push(comment);
       });
       return state;
+    case CREATE_COMMENT:
+      return {
+        ...state,
+        [action.post.category]: {
+          ...state[action.post.category],
+          'posts': {
+            ...state[action.post.category]['posts'],
+            [action.post.id]: {
+              ...state[action.post.category]['posts'][action.post.id],
+              'comments': [...state[action.post.category]['posts'][action.post.id]['comments'], action.item],
+            },
+          },
+        },
+      };
     case EDIT_COMMENT:
       const comment = state[action.post.category].posts[action.post.id].comments.find(comment => action.item.id === comment.id);
-      if (comment) {
-        comment.voteScore = action.item.voteScore;
-        comment.body = action.item.body;
-        comment.timestamp = action.item.timestamp;
-      }
+      comment.voteScore = action.item.voteScore;
+      comment.body = action.item.body;
+      comment.timestamp = action.item.timestamp;
       return state;
     case DELETE_POST:
       delete state[action.item.category].posts[action.item.id];

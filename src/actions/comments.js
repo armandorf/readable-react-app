@@ -5,7 +5,7 @@ export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const REQUEST_COMMENTS_FOR_POST = 'REQUEST_COMMENTS_FOR_POST';
 export const SELECT_COMMENT = 'SELECT_COMMENT';
-export const ADD_COMMENT = 'ADD_COMMENT';
+export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 
@@ -59,6 +59,38 @@ export const requestCommentVote = (post, comment, value) => dispatch => {
       dispatch(receivedItems());
     });
 };
+
+export const requestCreateComment = (post, comment) => dispatch => {
+  // indicate that request is being sent to server
+  dispatch(requestingItems());
+
+  const request = new Request(`${baseUrl}/comments`, {
+    method: 'POST',
+    headers: headers,
+    cache: 'default',
+    body: JSON.stringify(comment),
+  });
+  return fetch(request)
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred creating the comment.', error),
+    )
+    .then(comment => {
+      dispatch(addComment(post, comment));
+
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
+};
+
+/**
+ * Add comment to the store.
+ */
+export const addComment = (post, comment) => ({
+  type: CREATE_COMMENT,
+  post: post,
+  item: comment,
+});
 
 /**
  * Edit comment in the store.
