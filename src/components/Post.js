@@ -46,7 +46,7 @@ class Post extends Component {
     });
   };
 
-  updatePostAndCloseModal = (post) => () => {
+  updatePostAndCloseModal = post => () => {
     this.props.updatePost({
       ...post,
       title: this.state.title,
@@ -55,12 +55,19 @@ class Post extends Component {
     this.closeModal();
   };
 
-  deletePost = () => {
-    // TODO: route to list of posts in this post's class after deletion
+  // delete the post and route to post's category page
+  deletePost = post => () => {
+    this.props.deletePost(post);
+    this.props.history.push(`/${post.category}`);
+  };
+
+  addCommentAndCloseModal = comment => () => {
+    // this.props.addComment(comment);
+    this.closeModal();
   };
 
   render() {
-    const { post, isListItem, updatePost, votePost } = this.props;
+    const { post, isListItem, updatePost, votePost, deletePost } = this.props;
 
     return (
       <div>
@@ -74,7 +81,8 @@ class Post extends Component {
                 <span> </span>
                 <DropdownButton bsSize="small" bsStyle='default' title='Manage' id='sort-by-buttons'>
                   <MenuItem onSelect={this.openModal}>Edit</MenuItem>
-                  <MenuItem onSelect={this.deletePost}>Delete</MenuItem>
+                  <MenuItem onSelect={this.deletePost(post)}>Delete</MenuItem>
+                  <MenuItem onSelect={() => {}}>Add Comment</MenuItem>
                 </DropdownButton>
               </h1>
             </span>
@@ -85,12 +93,14 @@ class Post extends Component {
             <p className='post-body'>{post.body}</p>
 
             {/* List of Comments */}
+            <h2>Comments</h2>
             <CommentList
               post={post}
               comments={post.comments}
               voteComment={this.props.voteComment}
             />
-            
+
+            {/* Modal for editing a Post */}
             <Modal show={this.state.showModal} onHide={this.closeModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Edit post</Modal.Title>

@@ -71,13 +71,12 @@ class PostList extends Component {
       return;
     }
 
-    const newPost = {
+    this.props.createPost({
       ...this.state.newPost,
       id: uniqid(),
       timestamp: Date.now(),
       author: username,
-    };
-    this.props.createPost(newPost);
+    });
 
     this.closeModal();
   };

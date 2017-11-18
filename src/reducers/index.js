@@ -7,16 +7,16 @@ import {
 import {
   REQUEST_POSTS,
   RECEIVE_POSTS,
-  ADD_ALL_POSTS,
   SELECT_POST,
   CREATE_POST,
   EDIT_POST,
-  addAllPosts,
+  DELETE_POST,
 } from '../actions/posts';
 import {
   SELECT_COMMENT,
   RECEIVE_COMMENTS,
   EDIT_COMMENT,
+  DELETE_COMMENT,
 } from '../actions/comments';
 import {
   ASYNC_OPERATION_STARTED,
@@ -58,14 +58,29 @@ export const postsByCategory = (state = {}, action) => {
       return state;
     case EDIT_COMMENT:
       const comment = state[action.post.category].posts[action.post.id].comments.find(comment => action.item.id === comment.id);
-      console.log(comment);
-      console.log(action.item.voteScore);
       if (comment) {
         comment.voteScore = action.item.voteScore;
         comment.body = action.item.body;
         comment.timestamp = action.item.timestamp;
       }
       return state;
+    case DELETE_POST:
+      delete state[action.item.category].posts[action.item.id];
+      return state;
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        [state[action.post.category]]: {
+          ...state[action.post.category],
+          [state[action.post.category]['posts']]: {
+            ...state[action.post.category]['posts'],
+            [state[action.post.category]['posts'][action.post.id]]: {
+              ...state[action.post.category]['posts'][action.post.id],
+              [state[action.post.category]['posts'][action.post.id]['comments']]: state[action.post.category]['posts'][action.post.id]['comments'].filter(comment => comment.id !== action.item.id),
+            }
+          },
+        },
+      };
     default:
       return state;
   }

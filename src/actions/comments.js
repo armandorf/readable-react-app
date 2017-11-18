@@ -7,7 +7,7 @@ export const REQUEST_COMMENTS_FOR_POST = 'REQUEST_COMMENTS_FOR_POST';
 export const SELECT_COMMENT = 'SELECT_COMMENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
-export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 export const fetchCommentsForPost = post => dispatch => {
   // indicate that items are being fetched
@@ -65,6 +65,37 @@ export const requestCommentVote = (post, comment, value) => dispatch => {
  */
 export const editComment = (post, comment) => ({
   type: EDIT_COMMENT,
+  post: post,
+  item: comment,
+});
+
+export const requestCommentDelete = (post, comment) => dispatch => {
+  // signal that request is being sent to server
+  dispatch(requestingItems());
+
+  const request = new Request(`${baseUrl}/comments/${comment.id}`, {
+    method: 'DELETE',
+    headers: headers,
+    cache: 'default',
+  });
+  return fetch(request)
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred while deleting the comment.', error),
+    )
+    .then(comment => {
+      dispatch(deleteComment(post, comment));
+
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
+};
+
+/**
+ * Remove comment from the store.
+ */
+export const deleteComment = (post, comment) => ({
+  type: DELETE_COMMENT,
   post: post,
   item: comment,
 });

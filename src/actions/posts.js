@@ -9,7 +9,7 @@ export const SELECT_POST = 'SELECT_POST';
 export const ADD_ALL_POSTS = 'ADD_ALL_POSTS';
 export const CREATE_POST = 'CREATE_POST';
 export const EDIT_POST = 'EDIT_POST';
-export const REMOVE_POST = 'REMOVE_POST';
+export const DELETE_POST = 'DELETE_POST';
 
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
@@ -22,7 +22,7 @@ export const addAllPosts = items => ({
 });
 
 export const fetchAllPosts = () => dispatch => {
-  // indicate that items are being fetched
+  // signal that items are being fetched
   dispatch(requestingItems());
 
   return fetch(`${baseUrl}/posts`, httpGetRequestOptions)
@@ -44,7 +44,7 @@ export const fetchAllPosts = () => dispatch => {
 };
 
 export const fetchPostsForCategory = category => dispatch => {
-  // indicate that items are being fetched
+  // signal that items are being fetched
   dispatch(requestingItems());
 
   return fetch(`${baseUrl}/${category}/posts`, httpGetRequestOptions)
@@ -68,7 +68,7 @@ export const selectPost = post => ({
 });
 
 export const requestPostCreate = post => dispatch => {
-  // indicate that request is being sent to server
+  // signal that request is being sent to server
   dispatch(requestingItems());
 
   const request = new Request(`${baseUrl}/posts`, {
@@ -78,16 +78,16 @@ export const requestPostCreate = post => dispatch => {
     body: JSON.stringify(post),
   });
   return fetch(request)
-  .then(
-    response => response.json(),
-    error => console.log('An error occurred while creating post.', error),
-  )
-  .then(post => {
-    dispatch(createPost(post));
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred while creating post.', error),
+    )
+    .then(post => {
+      dispatch(createPost(post));
 
-    // signal async operation has ended
-    dispatch(receivedItems());
-  });
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
 };
 
 /**
@@ -99,7 +99,7 @@ export const createPost = post => ({
 });
 
 export const requestPostUpdate = post => dispatch => {
-  // indicate that request is being sent to server
+  // signal that request is being sent to server
   dispatch(requestingItems());
 
   // delete unnecessary fields (leave only title and body)
@@ -139,7 +139,7 @@ export const editPost = post => ({
 });
 
 export const requestPostVote = (post, value) => dispatch => {
-  // indicate that request is being sent to server
+  // signal that request is being sent to server
   dispatch(requestingItems());
 
   const request = new Request(`${baseUrl}/posts/${post.id}`, {
@@ -160,3 +160,33 @@ export const requestPostVote = (post, value) => dispatch => {
       dispatch(receivedItems());
     });
 };
+
+export const requestPostDelete = post => dispatch => {
+  // signal that request is being sent to server
+  dispatch(requestingItems());
+
+  const request = new Request(`${baseUrl}/posts/${post.id}`, {
+    method: 'DELETE',
+    headers: headers,
+    cache: 'default',
+  });
+  return fetch(request)
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred while deleting the post.', error),
+    )
+    .then(post => {
+      dispatch(deletePost(post));
+
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
+};
+
+/**
+ * Remove post from the store.
+ */
+export const deletePost = post => ({
+  type: DELETE_POST,
+  item: post,
+});

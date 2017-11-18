@@ -6,7 +6,7 @@ import Loading from 'react-loading';
 import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
-import { requestPostUpdate, requestPostCreate, requestPostVote } from '../actions/posts';
+import { requestPostUpdate, requestPostCreate, requestPostVote, requestPostDelete } from '../actions/posts';
 import { fetchCommentsForPost, requestCommentVote } from '../actions/comments';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
@@ -45,13 +45,15 @@ class App extends Component {
             />
           )}>
           </Route>
-          <Route path='/:categoryPath/:postId' render={({ match }) => (
+          <Route path='/:categoryPath/:postId' render={({ match, history }) => (
             <Post
               post={this.props.allPosts.find(post => post.id === match.params.postId)}
               updatePost={this.props.updatePost}
               votePost={this.props.votePost}
               voteComment={this.props.voteComment}
+              deletePost={this.props.deletePost}
               match={match}
+              history={history}
             />
           )}>
           </Route>
@@ -93,6 +95,7 @@ function mapDispatchToProps(dispatch) {
     getCommentsForPost: (post) => dispatch(fetchCommentsForPost(post)),
     votePost: (post, value) => dispatch(requestPostVote(post, value)),
     voteComment: (post, comment, value) => dispatch(requestCommentVote(post, comment, value)),
+    deletePost: post => dispatch(requestPostDelete(post)),
   };
 }
 
