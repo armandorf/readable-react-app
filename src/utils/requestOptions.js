@@ -11,8 +11,3 @@ export const httpGetRequestOptions = {
   headers: headers,
   cache: 'default',
 };
-
-// TODO: do the above for the other verbs
-
-
-

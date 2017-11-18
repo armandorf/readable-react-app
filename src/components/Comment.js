@@ -31,8 +31,12 @@ export const Comment = ({ post, comment, isListItem, voteComment }) => (
         </div>
       </Media.Left>
       <Media.Body>
-        {comment.body}
+        <p className='item-content'>{comment.body}</p>
         <p className='item-metadata'>updated on {(new Date(comment.timestamp)).toDateString()} by {comment.author}</p>
+        <div>
+          <span className='comment-edit-section'>Edit</span>
+          <span> </span>
+          <span className='comment-edit-section'>Delete</span></div>
       </Media.Body>
     </Media>
     }

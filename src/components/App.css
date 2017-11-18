@@ -9,10 +9,20 @@
   padding-left: 15px;
 }
 
+.item-content {
+  font-size: small;
+  margin-bottom: 3px;
+}
+
 .item-metadata {
   color: #888;
   font-size: small;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
+}
+
+.comment-edit-section {
+  font-size: small;
+  margin-bottom: 0px;
 }
 
 .comments-total {
