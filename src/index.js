@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +17,8 @@ const store = createStore(
   reducers,
   composeEnhancers(
     applyMiddleware(
-      thunkMiddleware
+      thunkMiddleware,
+      createLogger(),
     )
   )
 );
