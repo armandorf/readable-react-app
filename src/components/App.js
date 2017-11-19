@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Link, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import sortBy from 'sort-by';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
@@ -45,7 +45,7 @@ class App extends Component {
                   voteComment={this.props.voteComment}
                 />
               )} />
-              <Route exact path='/:categoryPath' render={({ match }) => (
+              <Route exact path='/:categoryPath' render={({ match, history }) => (
                 <Category
                   category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
                   createPost={this.props.createPost}
@@ -54,6 +54,7 @@ class App extends Component {
                   updateComment={this.props.updateComment}
                   voteComment={this.props.voteComment}
                   match={match}
+                  history={history}
                 />
               )}>
               </Route>

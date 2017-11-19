@@ -1,17 +1,14 @@
 import { combineReducers } from 'redux';
 import {
   RECEIVE_CATEGORIES,
-  SELECT_CATEGORY,
 } from '../actions/categories';
 import {
   RECEIVE_POSTS,
-  SELECT_POST,
   CREATE_POST,
   EDIT_POST,
   DELETE_POST,
 } from '../actions/posts';
 import {
-  SELECT_COMMENT,
   RECEIVE_COMMENTS,
   CREATE_COMMENT,
   EDIT_COMMENT,

@@ -54,11 +54,12 @@ class Comment extends Component {
     } = this.props;
 
     return (
+
       <div>
-  
+        
         {comment &&
           <div>
-    
+
             <h4>{comment.name}</h4>
             <Media>
               <Media.Left>

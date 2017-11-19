@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Media,
+  ButtonGroup,
   Button,
   Modal,
   FormGroup,
@@ -73,6 +74,7 @@ class Post extends Component {
       updateComment,
       voteComment,
       deleteComment,
+      history,
     } = this.props;
 
     return (
@@ -81,6 +83,31 @@ class Post extends Component {
         {/* Post Detail View */}
         {(!isListItem && post) &&
           <div>
+            <ButtonGroup>
+              <Button
+                className='btn-link'
+                bsSize="small"
+                bsStyle="link"
+                onClick={history.goBack}>
+                Go back
+              </Button>
+              <Button
+                className='btn-link'
+                bsSize="small"
+                bsStyle="link"
+                onClick={() => history.push(`/${post.category}`)}>
+                Category
+              </Button>
+              <Button
+                className='btn-link'
+                bsSize="small"
+                bsStyle="link"
+                onClick={() => history.push('/')}>
+                All categories
+              </Button>
+            </ButtonGroup>
+            <hr />
+
             <span>
               <h1>
                 {post.title}
@@ -98,6 +125,8 @@ class Post extends Component {
               ? <p className='comments-total'>{post.comments.length} comments</p>
               : <p className='comments-total'>No comments yet</p>}
             <p className='post-body'>{post.body}</p>
+
+            <hr />
 
             {/* List of Comments */}
             <CommentList

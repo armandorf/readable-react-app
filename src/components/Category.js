@@ -1,13 +1,26 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
 import PostList from './PostList';
 import sortBy from 'sort-by';
+import {
+  ButtonGroup,
+  Button,
+} from 'react-bootstrap';
 
-export const Category = ({ category, createPost, match, votePost, voteComment }) => (
+export const Category = ({ match, history, category, createPost, votePost, voteComment }) => (
 
   <div>
+    <ButtonGroup>
+      <Button
+        className='btn-link'
+        bsSize="small"
+        bsStyle="link"
+        onClick={history.goBack}>
+        Go back
+      </Button>
+    </ButtonGroup>
+    <hr />
     <h1>{category ? category.name : ''}</h1>
-    
+    <hr />
     <PostList
       posts={
         category

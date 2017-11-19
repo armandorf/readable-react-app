@@ -9,7 +9,6 @@ class CategoryList extends Component {
 
     return (
       <div>
-
         <h1>Categories</h1>
         <ul>
           {categories && categories.map(category => (
@@ -18,7 +17,7 @@ class CategoryList extends Component {
             </li>
           ))}
         </ul>
-        
+        <hr />
         <PostList
           posts={posts}
           createPost={createPost}
