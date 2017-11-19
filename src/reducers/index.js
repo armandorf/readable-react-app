@@ -146,43 +146,7 @@ export const isFetching = (state = false, action) => {
   }
 };
 
-export const selectCategory = (state = {}, action) => {
-  switch (action.type) {
-    case SELECT_CATEGORY:
-      return {
-        selectedCategory: action.category,
-      };
-    default:
-      return state;
-  }
-};
-
-export const selectPost = (state = {}, action) => {
-  switch (action.type) {
-    case SELECT_POST:
-      return {
-        selectedPost: action.post,
-      };
-    default:
-      return state;
-  }
-};
-
-export const selectComment = (state = {}, action) => {
-  switch (action.type) {
-    case SELECT_COMMENT:
-      return {
-        selectedComment: action.comment,
-      };
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   postsByCategory,
-  selectCategory,
-  selectPost,
-  selectComment,
   isFetching,
 });
