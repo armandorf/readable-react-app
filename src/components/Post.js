@@ -64,7 +64,9 @@ class Post extends Component {
   // delete the post and route to post's category page
   deletePost = post => () => {
     this.props.deletePost(post);
-    this.props.history.push(`/${post.category}`);
+    if (this.props.match.path === '/:categoryPath/:postId') {
+      this.props.history.push(`/${post.category}`);
+    }
   };
 
   render() {
@@ -192,6 +194,11 @@ class Post extends Component {
             <Media.Body>
               <Media.Heading>
                 <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
+                <span> </span>
+                <DropdownButton bsSize="small" bsStyle='default' title='Manage' id='sort-by-buttons'>
+                  <MenuItem onSelect={this.openModal}>Edit</MenuItem>
+                  <MenuItem onSelect={this.deletePost(post)}>Delete</MenuItem>
+                </DropdownButton>
               </Media.Heading>
               <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} in category {post.category} by {post.author}</p>
               {post.comments && post.comments.length > 0
@@ -208,6 +215,7 @@ class Post extends Component {
 }
 
 Post.propTypes = {
+  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   isListItem: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,

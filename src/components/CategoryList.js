@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
 
-const CategoryList = ({ history, categories, posts, createPost, votePost }) => (
+const CategoryList = ({
+  match,
+  history,
+  categories,
+  posts,
+  createPost,
+  updatePost,
+  votePost,
+  deletePost,
+}) => (
   <div>
 
     <h1>Categories</h1>
@@ -16,11 +25,14 @@ const CategoryList = ({ history, categories, posts, createPost, votePost }) => (
     </ul>
     <hr />
     <PostList
+      match={match}
       history={history}
       categories={categories}
       posts={posts}
       createPost={createPost}
+      updatePost={updatePost}
       votePost={votePost}
+      deletePost={deletePost}
     />
     
   </div>
@@ -28,10 +40,13 @@ const CategoryList = ({ history, categories, posts, createPost, votePost }) => (
 );
 
 CategoryList.propTypes = {
+  match: PropTypes.object.isRequired,
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
   createPost: PropTypes.func.isRequired,
   votePost: PropTypes.func.isRequired,
+  updatePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
 };
 
 export default CategoryList;

@@ -85,6 +85,7 @@ class PostList extends Component {
 
   render() {
     const {
+      match,
       history,
       categories,
       posts,
@@ -111,10 +112,13 @@ class PostList extends Component {
           {posts && posts.map(post => (
             <Media.ListItem key={post.id}>
               <Post
+                match={match}
                 history={history}
                 post={post}
                 isListItem={true}
+                updatePost={this.props.updatePost}
                 votePost={votePost}
+                deletePost={this.props.deletePost}
                 createComment={createComment}
                 updateComment={updateComment}
                 voteComment={voteComment}
@@ -176,10 +180,13 @@ class PostList extends Component {
 }
 
 PostList.propTypes = {
+  match: PropTypes.object.isRequired,
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
   createPost: PropTypes.func.isRequired,
+  updatePost: PropTypes.func.isRequired,
   votePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   createComment: PropTypes.func,
   updateComment: PropTypes.func,
   voteComment: PropTypes.func,

@@ -8,10 +8,13 @@ import {
 } from 'react-bootstrap';
 
 const Category = ({
+  match,
   history,
   category,
   createPost,
+  updatePost,
   votePost,
+  deletePost,
   createComment,
   updateComment,
   voteComment,
@@ -32,6 +35,7 @@ const Category = ({
     <h1>{category ? category.name : ''}</h1>
     <hr />
     <PostList
+      match={match}
       history={history}
       categories={category ? [category] : []}
       posts={
@@ -40,10 +44,12 @@ const Category = ({
           : []
       }
       createPost={createPost}
+      updatePost={updatePost}
       votePost={votePost}
       createComment={createComment}
       updateComment={updateComment}
       voteComment={voteComment}
+      deletePost={deletePost}
     />
     
   </div>
@@ -51,10 +57,13 @@ const Category = ({
 );
 
 Category.propTypes = {
+  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired,
   createPost: PropTypes.func.isRequired,
+  updatePost: PropTypes.func.isRequired,
   votePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   createComment: PropTypes.func.isRequired,
   updateComment: PropTypes.func.isRequired,
   voteComment: PropTypes.func.isRequired,

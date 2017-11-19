@@ -36,21 +36,27 @@ class App extends Component {
           ? <Loading delay={200} type='spin' color='#222' className='loading'/>
           : <div className="main">
             <Switch>
-              <Route exact path='/' render={({ history }) => (
+              <Route exact path='/' render={({ match, history }) => (
                 <CategoryList
+                  match={match}
                   history={history}
                   categories={this.props.allCategories}
                   posts={this.props.allPosts}
                   createPost={this.props.createPost}
+                  updatePost={this.props.updatePost}
                   votePost={this.props.votePost}
+                  deletePost={this.props.deletePost}
                 />
               )} />
               <Route exact path='/:categoryPath' render={({ match, history }) => (
                 <Category
+                  match={match}
                   history={history}
                   category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
                   createPost={this.props.createPost}
+                  updatePost={this.props.updatePost}
                   votePost={this.props.votePost}
+                  deletePost={this.props.deletePost}
                   createComment={this.props.createComment}
                   updateComment={this.props.updateComment}
                   voteComment={this.props.voteComment}
@@ -59,7 +65,9 @@ class App extends Component {
               </Route>
               <Route path='/:categoryPath/:postId' render={({ match, history }) => (
                 <Post
+                  match={match}
                   history={history}
+                  isListItem={false}
                   post={this.props.allPosts.find(post => post.id === match.params.postId)}
                   updatePost={this.props.updatePost}
                   votePost={this.props.votePost}
