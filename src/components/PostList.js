@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Post from './Post';
 import sortBy from 'sort-by';
 import {
@@ -170,5 +171,15 @@ class PostList extends Component {
     );
   };
 }
+
+PostList.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  createPost: PropTypes.func.isRequired,
+  votePost: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  updateComment: PropTypes.func.isRequired,
+  voteComment: PropTypes.func.isRequired,
+};
 
 export default PostList;

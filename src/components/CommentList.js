@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Media,
   Button,
@@ -98,5 +99,14 @@ class CommentList extends Component {
     );
   };
 }
+
+CommentList.propTypes = {
+  post: PropTypes.object.isRequired,
+  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  createComment: PropTypes.func.isRequired,
+  updateComment: PropTypes.func.isRequired,
+  voteComment: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+};
 
 export default CommentList;

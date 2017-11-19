@@ -18,7 +18,7 @@ import {
   requestCommentDelete,
 } from '../actions/comments';
 import CategoryList from './CategoryList';
-import { Category } from './Category';
+import Category from './Category';
 import Post from './Post';
 import Loading from 'react-loading';
 
@@ -42,34 +42,31 @@ class App extends Component {
                   posts={this.props.allPosts}
                   createPost={this.props.createPost}
                   votePost={this.props.votePost}
-                  voteComment={this.props.voteComment}
                 />
               )} />
               <Route exact path='/:categoryPath' render={({ match, history }) => (
                 <Category
+                  history={history}
                   category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
                   createPost={this.props.createPost}
                   votePost={this.props.votePost}
                   createComment={this.props.createComment}
                   updateComment={this.props.updateComment}
                   voteComment={this.props.voteComment}
-                  match={match}
-                  history={history}
                 />
               )}>
               </Route>
               <Route path='/:categoryPath/:postId' render={({ match, history }) => (
                 <Post
+                  history={history}
                   post={this.props.allPosts.find(post => post.id === match.params.postId)}
                   updatePost={this.props.updatePost}
                   votePost={this.props.votePost}
+                  deletePost={this.props.deletePost}
                   createComment={this.props.createComment}
                   updateComment={this.props.updateComment}
                   voteComment={this.props.voteComment}
-                  deletePost={this.props.deletePost}
                   deleteComment={this.props.deleteComment}
-                  match={match}
-                  history={history}
                 />
               )}>
               </Route>
@@ -82,12 +79,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ postsByCategory, isFetching, selectedCategory, selectedPost, selectedComment }) {
+function mapStateToProps({ postsByCategory, isFetching }) {
   return {
     isFetching,
-    selectedCategory,
-    selectedPost,
-    selectedComment,
     allCategories: postsByCategory
       ? Object.keys(postsByCategory).reduce((categoriesAcc, categoryId) => categoriesAcc.concat(postsByCategory[categoryId]), [])
       : [],

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
   Media,
@@ -68,14 +69,14 @@ class Post extends Component {
 
   render() {
     const {
-      post,
+      history,
       isListItem,
+      post,
       votePost,
       createComment,
       updateComment,
       voteComment,
       deleteComment,
-      history,
     } = this.props;
 
     return (
@@ -205,5 +206,18 @@ class Post extends Component {
     );
   };
 }
+
+Post.propTypes = {
+  history: PropTypes.object.isRequired,
+  isListItem: PropTypes.bool.isRequired,
+  post: PropTypes.object.isRequired,
+  udpatePost: PropTypes.func.isRequired,
+  votePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  updateComment: PropTypes.func.isRequired,
+  voteComment: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+};
 
 export default Post;

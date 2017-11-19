@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PostList from './PostList';
 import sortBy from 'sort-by';
 import {
@@ -6,9 +7,18 @@ import {
   Button,
 } from 'react-bootstrap';
 
-export const Category = ({ match, history, category, createPost, votePost, voteComment }) => (
+const Category = ({
+  history,
+  category,
+  createPost,
+  votePost,
+  createComment,
+  updateComment,
+  voteComment,
+}) => (
 
   <div>
+
     <ButtonGroup>
       <Button
         className='btn-link'
@@ -22,17 +32,31 @@ export const Category = ({ match, history, category, createPost, votePost, voteC
     <h1>{category ? category.name : ''}</h1>
     <hr />
     <PostList
+      categories={category ? [category] : []}
       posts={
         category
           ? Object.keys(category.posts).reduce((postsAcc, postId) => postsAcc.concat(category.posts[postId]), []).sort(sortBy('-voteScore'))
           : []
       }
       createPost={createPost}
-      categories={category ? [category] : []}
       votePost={votePost}
+      createComment={createComment}
+      updateComment={updateComment}
       voteComment={voteComment}
     />
     
   </div>
 
 );
+
+Category.propTypes = {
+  history: PropTypes.object.isRequired,
+  category: PropTypes.object.isRequired,
+  createPost: PropTypes.func.isRequired,
+  votePost: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  updateComment: PropTypes.func.isRequired,
+  voteComment: PropTypes.func.isRequired,
+};
+
+export default Category;

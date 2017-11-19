@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   ButtonGroup,
   Media,
@@ -126,6 +127,14 @@ class Comment extends Component {
       </div>
     );
   };
+}
+
+Comment.propTypes = {
+  post: PropTypes.object.isRequired,
+  comment: PropTypes.object.isRequired,
+  updateComment: PropTypes.func.isRequired,
+  voteComment: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
 };
 
 export default Comment;
