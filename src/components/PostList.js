@@ -84,29 +84,37 @@ class PostList extends Component {
   };
 
   render() {
+    const {
+      categories,
+      posts,
+      votePost,
+      createComment,
+      updateComment,
+      voteComment,
+    } = this.props;
 
     return (
       <div>
 
-        <h1>Posts</h1>
+        <h2>Posts</h2>
         <ButtonToolbar>
           <DropdownButton bsSize="small" bsStyle='default' title='Sort by' id='sort-by-buttons'>
-            <MenuItem onSelect={this.sortPostsBy('timestamp')}>Date Created</MenuItem>
             <MenuItem onSelect={this.sortPostsBy('-voteScore')}>Vote Score</MenuItem>
+            <MenuItem onSelect={this.sortPostsBy('timestamp')}>Date Created</MenuItem>
             <MenuItem onSelect={this.sortPostsBy('title')}>Title</MenuItem>
           </DropdownButton>
           <Button bsSize="small" bsStyle="primary" onClick={this.openModal}>Create new post</Button>
         </ButtonToolbar>
 
         <Media.List className='post-list'>
-          {this.props.posts && this.props.posts.map(post => (
+          {posts && posts.map(post => (
             <Media.ListItem key={post.id}>
               <Post post={post}
                     isListItem={true}
-                    votePost={this.props.votePost}
-                    createComment={this.props.createComment}
-                    updateComment={this.props.updateComment}
-                    voteComment={this.props.voteComment}
+                    votePost={votePost}
+                    createComment={createComment}
+                    updateComment={updateComment}
+                    voteComment={voteComment}
               />
             </Media.ListItem>
           ))}
@@ -143,7 +151,7 @@ class PostList extends Component {
                   onChange={this.assignCategoryValue}
                 >
                   <option key='categorySelection' value='Select a category'>Please select a category</option>
-                  {this.props.categories && this.props.categories.map(category => (
+                  {categories && categories.map(category => (
                     <option key={category.path} value={category.name}>
                       {category.name}
                     </option>

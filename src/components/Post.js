@@ -68,9 +68,7 @@ class Post extends Component {
     const {
       post,
       isListItem,
-      updatePost,
       votePost,
-      deletePost,
       createComment,
       updateComment,
       voteComment,
@@ -90,10 +88,12 @@ class Post extends Component {
                 <DropdownButton bsSize="small" bsStyle='default' title='Manage' id='sort-by-buttons'>
                   <MenuItem onSelect={this.openModal}>Edit</MenuItem>
                   <MenuItem onSelect={this.deletePost(post)}>Delete</MenuItem>
+                  <MenuItem onSelect={() => votePost(post, 'upVote')}>Vote Up</MenuItem>
+                  <MenuItem onSelect={() => votePost(post, 'upVote')}>Vote Down</MenuItem>
                 </DropdownButton>
               </h1>
             </span>
-            <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} by {post.author}</p>
+            <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} with vote score <b>{post.voteScore}</b> in category <b>{post.category}</b> by {post.author}</p>
             {post.comments && post.comments.length > 0
               ? <p className='comments-total'>{post.comments.length} comments</p>
               : <p className='comments-total'>No comments yet</p>}
@@ -162,7 +162,7 @@ class Post extends Component {
               <Media.Heading>
                 <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
               </Media.Heading>
-              <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} by {post.author}</p>
+              <p className='item-metadata'>created on {(new Date(post.timestamp)).toDateString()} in category {post.category} by {post.author}</p>
               {post.comments && post.comments.length > 0
                 ? <p className='comments-total'>{post.comments.length} comments</p>
                 : <p className='comments-total'>No comments yet</p>}

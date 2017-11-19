@@ -43,7 +43,13 @@ class CommentList extends Component {
   };
 
   render() {
-    const { post, comments, createComment, updateComment, voteComment, deleteComment } = this.props;
+    const {
+      post,
+      comments,
+      updateComment,
+      voteComment,
+      deleteComment,
+    } = this.props;
 
     return (
 
