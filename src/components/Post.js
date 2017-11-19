@@ -117,7 +117,7 @@ class Post extends Component {
                   <MenuItem onSelect={this.openModal}>Edit</MenuItem>
                   <MenuItem onSelect={this.deletePost(post)}>Delete</MenuItem>
                   <MenuItem onSelect={() => votePost(post, 'upVote')}>Vote Up</MenuItem>
-                  <MenuItem onSelect={() => votePost(post, 'upVote')}>Vote Down</MenuItem>
+                  <MenuItem onSelect={() => votePost(post, 'downVote')}>Vote Down</MenuItem>
                 </DropdownButton>
               </h1>
             </span>
