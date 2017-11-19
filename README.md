@@ -1,3 +1,5 @@
+# Readable: React Redux App
+
 ## About this Project
 This is a React web app that mimics the functionality of a content and comment web app such as Reddit. Users can post content to a set of predefined categories. They can then comment on the posts and vote both on either of them. It is also possible to edit and delete posts and comments.
 
