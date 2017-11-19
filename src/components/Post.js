@@ -12,6 +12,7 @@ import {
   MenuItem
 } from 'react-bootstrap';
 import CommentList from './CommentList';
+import sortBy from 'sort-by';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
@@ -131,7 +132,7 @@ class Post extends Component {
             {/* List of Comments */}
             <CommentList
               post={post}
-              comments={post.comments}
+              comments={post.comments.sort(sortBy('-voteScore'))}
               createComment={createComment}
               updateComment={updateComment}
               voteComment={voteComment}
