@@ -2,9 +2,7 @@ import { baseUrl, httpGetRequestOptions, headers } from '../utils/requestOptions
 import { requestingItems, receivedItems, } from './fetchingStatus';
 import { fetchCommentsForPost } from './comments';
 
-export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-export const REQUEST_POSTS_FOR_CATEGORY = 'REQUEST_POSTS_FOR_CATEGORY';
 export const SELECT_POST = 'SELECT_POST';
 export const ADD_ALL_POSTS = 'ADD_ALL_POSTS';
 export const CREATE_POST = 'CREATE_POST';
@@ -116,7 +114,6 @@ export const requestPostUpdate = post => dispatch => {
     cache: 'default',
     body: JSON.stringify(post),
   });
-  console.log(post);
   return fetch(request)
     .then(
       response => response.json(),

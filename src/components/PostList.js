@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Post from './Post';
 import sortBy from 'sort-by';
-import { ButtonToolbar,
-         DropdownButton,
-         MenuItem,
-         Media,
-         Button,
-         Modal,
-         FormGroup,
-         ControlLabel,
-         FormControl,
-         HelpBlock } from 'react-bootstrap';
+import {
+  ButtonToolbar,
+  DropdownButton,
+  MenuItem,
+  Media,
+  Button,
+  Modal,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock,
+} from 'react-bootstrap';
 import uniqid from 'uniqid';
 import { username } from '../utils/requestOptions';
 
@@ -77,7 +79,7 @@ class PostList extends Component {
       timestamp: Date.now(),
       author: username,
     });
-
+    this.setState({ newPost: {} });
     this.closeModal();
   };
 
@@ -103,13 +105,14 @@ class PostList extends Component {
                     isListItem={true}
                     votePost={this.props.votePost}
                     createComment={this.props.createComment}
+                    updateComment={this.props.updateComment}
                     voteComment={this.props.voteComment}
               />
             </Media.ListItem>
           ))}
         </Media.List>
 
-        {/* Modal for editing a Post */}
+        {/* Modal for creating a Post */}
         <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Edit post</Modal.Title>

@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Post from './Post';
-import sortBy from 'sort-by';
-import { ButtonToolbar,
-  DropdownButton,
-  MenuItem,
+import {
   Media,
   Button,
   Modal,
   FormGroup,
   ControlLabel,
   FormControl,
-  HelpBlock } from 'react-bootstrap';
+} from 'react-bootstrap';
 import uniqid from 'uniqid';
 import { username } from '../utils/requestOptions';
 import Comment from './Comment';
@@ -19,7 +15,7 @@ import Comment from './Comment';
 class CommentList extends Component {
   state = {
     showModal: false,
-    newComment: {},
+    body: '',
   };
 
   closeModal = () => {
@@ -31,29 +27,23 @@ class CommentList extends Component {
   };
 
   assignBodyValue = e => {
-    this.setState({
-      newComment: {
-        ...this.state.newComment,
-        body: e.target.value,
-      },
-    });
+    this.setState({ body: e.target.value });
   };
 
   createCommentAndCloseModal = post => () => {
     this.props.createComment(post, {
-      ...this.state.newComment,
       id: uniqid(),
       timestamp: Date.now(),
+      body: this.state.body,
       author: username,
       parentId: post.id,
     });
-
-    this.setState({ newComment: {} });
+    this.setState({ body: '' });
     this.closeModal();
   };
 
   render() {
-    const { post, comments, createComment, voteComment, deleteComment } = this.props;
+    const { post, comments, createComment, updateComment, voteComment, deleteComment } = this.props;
 
     return (
 
@@ -68,6 +58,7 @@ class CommentList extends Component {
                 post={post}
                 comment={comment}
                 isListItem={true}
+                updateComment={updateComment}
                 voteComment={voteComment}
                 deleteComment={deleteComment}
               />
@@ -86,7 +77,7 @@ class CommentList extends Component {
                 <ControlLabel>Comment</ControlLabel>
                 <FormControl
                   componentClass="textarea"
-                  value={this.state.newComment.body}
+                  value={this.state.body}
                   onChange={this.assignBodyValue}
                 />
               </FormGroup>

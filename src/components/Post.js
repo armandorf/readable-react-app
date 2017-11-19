@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { Media,
-         Button,
-         Modal,
-         FormGroup,
-         ControlLabel,
-         FormControl,
-         DropdownButton,
-         MenuItem } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import {
+  Media,
+  Button,
+  Modal,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  DropdownButton,
+  MenuItem
+} from 'react-bootstrap';
 import CommentList from './CommentList';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
@@ -17,7 +19,7 @@ class Post extends Component {
   state = {
     showModal: false,
     title: '',
-    body: '',
+    postBody: '',
   };
 
   assignTitleValue = e => {
@@ -30,7 +32,7 @@ class Post extends Component {
   assignBodyValue = e => {
     e.preventDefault();
     this.setState({
-      body: e.target.value,
+      postBody: e.target.value,
     });
   };
 
@@ -42,7 +44,7 @@ class Post extends Component {
     this.setState({
       showModal: true,
       title: this.props.post ? this.props.post.title : '',
-      body: this.props.post ? this.props.post.body : '',
+      postBody: this.props.post ? this.props.post.body : '',
     });
   };
 
@@ -50,8 +52,9 @@ class Post extends Component {
     this.props.updatePost({
       ...post,
       title: this.state.title,
-      body: this.state.body,
+      body: this.state.postBody,
     });
+    this.setState({ title: '', postBody: '' });
     this.closeModal();
   };
 
@@ -69,6 +72,7 @@ class Post extends Component {
       votePost,
       deletePost,
       createComment,
+      updateComment,
       voteComment,
       deleteComment,
     } = this.props;
@@ -100,6 +104,7 @@ class Post extends Component {
               post={post}
               comments={post.comments}
               createComment={createComment}
+              updateComment={updateComment}
               voteComment={voteComment}
               deleteComment={deleteComment}
             />
@@ -119,11 +124,11 @@ class Post extends Component {
                       onChange={this.assignTitleValue}
                     />
                   </FormGroup>
-                  <FormGroup controlId="bodyEditing">
+                  <FormGroup controlId="postBodyEditing">
                     <ControlLabel>Body</ControlLabel>
                     <FormControl
                       componentClass="textarea"
-                      value={this.state.body}
+                      value={this.state.postBody}
                       onChange={this.assignBodyValue}
                     />
                   </FormGroup>

@@ -2,24 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Link, Switch } from 'react-router-dom';
 import sortBy from 'sort-by';
-import Loading from 'react-loading';
-import FaSortDesc from 'react-icons/lib/fa/sort-desc';
 import './App.css';
 import { fetchAllCategoriesAndPosts } from '../actions/categories';
 import {
   requestPostUpdate,
   requestPostCreate,
   requestPostVote,
-  requestPostDelete } from '../actions/posts';
+  requestPostDelete,
+} from '../actions/posts';
 import {
   fetchCommentsForPost,
   requestCreateComment,
+  requestCommentUpdate,
   requestCommentVote,
-  requestCommentDelete } from '../actions/comments';
+  requestCommentDelete,
+} from '../actions/comments';
 import CategoryList from './CategoryList';
 import { Category } from './Category';
 import Post from './Post';
-import { options, baseUrl, headers } from '../utils/requestOptions';
+import Loading from 'react-loading';
 
 class App extends Component {
 
@@ -30,48 +31,52 @@ class App extends Component {
   render() {
 
     return (
-
-      <div className="main">
-        
-        <Switch>
-          <Route exact path='/' render={() => (
-            <CategoryList
-              categories={this.props.allCategories}
-              posts={this.props.allPosts}
-              createPost={this.props.createPost}
-              votePost={this.props.votePost}
-              voteComment={this.props.voteComment}
-            />
-          )} />
-          <Route exact path='/:categoryPath' render={({ match }) => (
-            <Category
-              category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
-              createPost={this.props.createPost}
-              votePost={this.props.votePost}
-              createComment={this.props.createComment}
-              voteComment={this.props.voteComment}
-              match={match}
-            />
-          )}>
-          </Route>
-          <Route path='/:categoryPath/:postId' render={({ match, history }) => (
-            <Post
-              post={this.props.allPosts.find(post => post.id === match.params.postId)}
-              updatePost={this.props.updatePost}
-              votePost={this.props.votePost}
-              createComment={this.props.createComment}
-              voteComment={this.props.voteComment}
-              deletePost={this.props.deletePost}
-              deleteComment={this.props.deleteComment}
-              match={match}
-              history={history}
-            />
-          )}>
-          </Route>
-        </Switch>
-        
+      <div>
+        {this.props.isFetching === true
+          ? <Loading delay={200} type='spin' color='#222' className='loading'/>
+          : <div className="main">
+            <Switch>
+              <Route exact path='/' render={() => (
+                <CategoryList
+                  categories={this.props.allCategories}
+                  posts={this.props.allPosts}
+                  createPost={this.props.createPost}
+                  votePost={this.props.votePost}
+                  voteComment={this.props.voteComment}
+                />
+              )} />
+              <Route exact path='/:categoryPath' render={({ match }) => (
+                <Category
+                  category={this.props.allCategories.find(category => category.path === match.params.categoryPath)}
+                  createPost={this.props.createPost}
+                  votePost={this.props.votePost}
+                  createComment={this.props.createComment}
+                  updateComment={this.props.updateComment}
+                  voteComment={this.props.voteComment}
+                  match={match}
+                />
+              )}>
+              </Route>
+              <Route path='/:categoryPath/:postId' render={({ match, history }) => (
+                <Post
+                  post={this.props.allPosts.find(post => post.id === match.params.postId)}
+                  updatePost={this.props.updatePost}
+                  votePost={this.props.votePost}
+                  createComment={this.props.createComment}
+                  updateComment={this.props.updateComment}
+                  voteComment={this.props.voteComment}
+                  deletePost={this.props.deletePost}
+                  deleteComment={this.props.deleteComment}
+                  match={match}
+                  history={history}
+                />
+              )}>
+              </Route>
+            </Switch>
+          
+        </div>
+      }
       </div>
-
     );
   }
 }
@@ -106,6 +111,7 @@ function mapDispatchToProps(dispatch) {
     getCommentsForPost: (post) => dispatch(fetchCommentsForPost(post)),
     votePost: (post, value) => dispatch(requestPostVote(post, value)),
     createComment: (post, comment) => dispatch(requestCreateComment(post, comment)),
+    updateComment: (post, comment) => dispatch(requestCommentUpdate(post, comment)),
     voteComment: (post, comment, value) => dispatch(requestCommentVote(post, comment, value)),
     deletePost: post => dispatch(requestPostDelete(post)),
     deleteComment: (post, comment) => dispatch(requestCommentDelete(post, comment)),

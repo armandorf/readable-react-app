@@ -1,9 +1,7 @@
 import { baseUrl, httpGetRequestOptions, headers } from '../utils/requestOptions';
 import { requestingItems, receivedItems, } from './fetchingStatus';
 
-export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
-export const REQUEST_COMMENTS_FOR_POST = 'REQUEST_COMMENTS_FOR_POST';
 export const SELECT_COMMENT = 'SELECT_COMMENT';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
@@ -91,6 +89,29 @@ export const addComment = (post, comment) => ({
   post: post,
   item: comment,
 });
+
+export const requestCommentUpdate = (post, comment) => dispatch => {
+  // indicate that request is being sent to server
+  dispatch(requestingItems());
+
+  const request = new Request(`${baseUrl}/comments/${comment.id}`, {
+    method: 'PUT',
+    headers: headers,
+    cache: 'default',
+    body: JSON.stringify(comment),
+  });
+  return fetch(request)
+    .then(
+      response => response.json(),
+      error => console.log('An error occurred creating the comment.', error),
+    )
+    .then(comment => {
+      dispatch(editComment(post, comment));
+
+      // signal async operation has ended
+      dispatch(receivedItems());
+    });
+};
 
 /**
  * Edit comment in the store.
