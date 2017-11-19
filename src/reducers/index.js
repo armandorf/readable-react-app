@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux';
 import {
-  REQUEST_CATEGORIES,
   RECEIVE_CATEGORIES,
   SELECT_CATEGORY,
 } from '../actions/categories';
 import {
-  REQUEST_POSTS,
   RECEIVE_POSTS,
   SELECT_POST,
   CREATE_POST,
@@ -43,20 +41,53 @@ export const postsByCategory = (state = {}, action) => {
         state[post.category].posts[post.id] = post;
       });
       return state;
-    case EDIT_POST:
-      state[action.item.category].posts[action.item.id].title = action.item.title;
-      state[action.item.category].posts[action.item.id].body = action.item.body;
-      state[action.item.category].posts[action.item.id].voteScore = action.item.voteScore;
-      return state;
     case CREATE_POST:
-      state[action.item.category].posts[action.item.id] = action.item;
-      state[action.item.category].posts[action.item.id]["comments"] = [];
+      return {
+        ...state,
+        [action.item.category]: {
+          ...state[action.item.category],
+          'posts': {
+            ...state[action.item.category]['posts'],
+            [action.item.id]: {
+              ...action.item,
+              'comments': [],
+            },
+          },
+        },
+      };
+    case EDIT_POST:
+      return {
+        ...state,
+        [action.item.category]: {
+          ...state[action.item.category],
+          'posts': {
+            ...state[action.item.category]['posts'],
+            [action.item.id]: {
+              ...state[action.item.category]['posts'][action.item.id],
+              'title': action.item.title,
+              'body': action.item.body,
+              'voteScore': action.item.voteScore,
+            },
+          },
+        },
+      };
+    case DELETE_POST:
+      delete state[action.item.category].posts[action.item.id];
       return state;
     case RECEIVE_COMMENTS:
-      action.items.forEach(comment => {
-        state[action.post.category].posts[action.post.id].comments.push(comment);
-      });
-      return state;
+      return {
+        ...state,
+        [action.post.category]: {
+          ...state[action.post.category],
+          'posts': {
+            ...state[action.post.category]['posts'],
+            [action.post.id]: {
+              ...state[action.post.category]['posts'][action.post.id],
+              'comments': [...state[action.post.category]['posts'][action.post.id]['comments'], ...action.items],
+            },
+          },
+        },
+      };
     case CREATE_COMMENT:
       return {
         ...state,
@@ -72,14 +103,19 @@ export const postsByCategory = (state = {}, action) => {
         },
       };
     case EDIT_COMMENT:
-      const comment = state[action.post.category].posts[action.post.id].comments.find(comment => action.item.id === comment.id);
-      comment.voteScore = action.item.voteScore;
-      comment.body = action.item.body;
-      comment.timestamp = action.item.timestamp;
-      return state;
-    case DELETE_POST:
-      delete state[action.item.category].posts[action.item.id];
-      return state;
+      return {
+        ...state,
+        [action.post.category]: {
+          ...state[action.post.category],
+          'posts': {
+            ...state[action.post.category]['posts'],
+            [action.post.id]: {
+              ...state[action.post.category]['posts'][action.post.id],
+              'comments': state[action.post.category]['posts'][action.post.id]['comments'].map(comment => comment.id === action.item.id ? action.item : comment),
+            },
+          },
+        },
+      };
     case DELETE_COMMENT:
       return {
         ...state,
