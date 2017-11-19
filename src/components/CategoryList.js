@@ -1,33 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
 
-class CategoryList extends Component {
+const CategoryList = ({ categories, posts, createPost, votePost }) => (
+  <div>
 
-  render() {
-    const { categories, createPost, posts, votePost } = this.props;
+    <h1>Categories</h1>
+    <ul>
+      {categories && categories.map(category => (
+        <li key={category.name}>
+          <Link to={`/${category.path}`}>{category.name}</Link>
+        </li>
+      ))}
+    </ul>
+    <hr />
+    <PostList
+      categories={categories}
+      posts={posts}
+      createPost={createPost}
+      votePost={votePost}
+    />
+    
+  </div>
 
-    return (
-      <div>
-        <h1>Categories</h1>
-        <ul>
-          {categories && categories.map(category => (
-            <li key={category.name}>
-              <Link to={`/${category.path}`}>{category.name}</Link>
-            </li>
-          ))}
-        </ul>
-        <hr />
-        <PostList
-          posts={posts}
-          createPost={createPost}
-          categories={categories}
-          votePost={votePost}
-        />
-        
-      </div>
-    );
-  };
-}
+);
+
+CategoryList.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  createPost: PropTypes.func.isRequired,
+  votePost: PropTypes.func.isRequired,
+};
 
 export default CategoryList;
