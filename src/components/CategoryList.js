@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
+import sortBy from 'sort-by';
 
 const CategoryList = ({
   match,
@@ -28,7 +29,7 @@ const CategoryList = ({
       match={match}
       history={history}
       categories={categories}
-      posts={posts}
+      posts={posts.sort(sortBy('-voteScore'))}
       createPost={createPost}
       updatePost={updatePost}
       votePost={votePost}

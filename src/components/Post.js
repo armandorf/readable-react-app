@@ -142,37 +142,6 @@ class Post extends Component {
               deleteComment={deleteComment}
             />
 
-            {/* Modal for editing a Post */}
-            <Modal show={this.state.showModal} onHide={this.closeModal}>
-              <Modal.Header closeButton>
-                <Modal.Title>Edit post</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <form>
-                  <FormGroup controlId="titleEditing">
-                    <ControlLabel>Title</ControlLabel>
-                    <FormControl
-                      type="text"
-                      value={this.state.title}
-                      onChange={this.assignTitleValue}
-                    />
-                  </FormGroup>
-                  <FormGroup controlId="postBodyEditing">
-                    <ControlLabel>Body</ControlLabel>
-                    <FormControl
-                      componentClass="textarea"
-                      value={this.state.postBody}
-                      onChange={this.assignBodyValue}
-                    />
-                  </FormGroup>
-                </form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={this.closeModal}>Close</Button>
-                <Button bsStyle="primary" onClick={this.updatePostAndCloseModal(post)}>Save changes</Button>
-              </Modal.Footer>
-            </Modal>
-
           </div>
 
         }
@@ -195,7 +164,7 @@ class Post extends Component {
               <Media.Heading>
                 <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
                 <span> </span>
-                <DropdownButton bsSize="small" bsStyle='default' title='Manage' id='sort-by-buttons'>
+                <DropdownButton bsSize="xsmall" bsStyle='default' title='Manage' id='sort-by-buttons'>
                   <MenuItem onSelect={this.openModal}>Edit</MenuItem>
                   <MenuItem onSelect={this.deletePost(post)}>Delete</MenuItem>
                 </DropdownButton>
@@ -207,6 +176,37 @@ class Post extends Component {
             </Media.Body>
           </Media>
         }
+
+        {/* Modal for editing a Post */}
+        <Modal show={this.state.showModal} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit post</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <FormGroup controlId="titleEditing">
+                <ControlLabel>Title</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.title}
+                  onChange={this.assignTitleValue}
+                />
+              </FormGroup>
+              <FormGroup controlId="postBodyEditing">
+                <ControlLabel>Body</ControlLabel>
+                <FormControl
+                  componentClass="textarea"
+                  value={this.state.postBody}
+                  onChange={this.assignBodyValue}
+                />
+              </FormGroup>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.closeModal}>Close</Button>
+            <Button bsStyle="primary" onClick={this.updatePostAndCloseModal(post)}>Save changes</Button>
+          </Modal.Footer>
+        </Modal>
 
       </div>
 

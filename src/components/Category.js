@@ -27,8 +27,8 @@ const Category = ({
         className='btn-link'
         bsSize="small"
         bsStyle="link"
-        onClick={history.goBack}>
-        Go back
+        onClick={() => history.push('/')}>
+        All categories
       </Button>
     </ButtonGroup>
     <hr />
