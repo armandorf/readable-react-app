@@ -36,8 +36,9 @@ class App extends Component {
           ? <Loading delay={200} type='spin' color='#222' className='loading'/>
           : <div className="main">
             <Switch>
-              <Route exact path='/' render={() => (
+              <Route exact path='/' render={({ history }) => (
                 <CategoryList
+                  history={history}
                   categories={this.props.allCategories}
                   posts={this.props.allPosts}
                   createPost={this.props.createPost}

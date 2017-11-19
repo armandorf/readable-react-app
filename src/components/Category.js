@@ -32,6 +32,7 @@ const Category = ({
     <h1>{category ? category.name : ''}</h1>
     <hr />
     <PostList
+      history={history}
       categories={category ? [category] : []}
       posts={
         category

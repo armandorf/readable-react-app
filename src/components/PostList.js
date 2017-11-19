@@ -85,6 +85,7 @@ class PostList extends Component {
 
   render() {
     const {
+      history,
       categories,
       posts,
       votePost,
@@ -109,12 +110,14 @@ class PostList extends Component {
         <Media.List className='post-list'>
           {posts && posts.map(post => (
             <Media.ListItem key={post.id}>
-              <Post post={post}
-                    isListItem={true}
-                    votePost={votePost}
-                    createComment={createComment}
-                    updateComment={updateComment}
-                    voteComment={voteComment}
+              <Post
+                history={history}
+                post={post}
+                isListItem={true}
+                votePost={votePost}
+                createComment={createComment}
+                updateComment={updateComment}
+                voteComment={voteComment}
               />
             </Media.ListItem>
           ))}
@@ -177,9 +180,9 @@ PostList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
   createPost: PropTypes.func.isRequired,
   votePost: PropTypes.func.isRequired,
-  createComment: PropTypes.func.isRequired,
-  updateComment: PropTypes.func.isRequired,
-  voteComment: PropTypes.func.isRequired,
+  createComment: PropTypes.func,
+  updateComment: PropTypes.func,
+  voteComment: PropTypes.func,
 };
 
 export default PostList;

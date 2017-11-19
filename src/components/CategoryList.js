@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
 
-const CategoryList = ({ categories, posts, createPost, votePost }) => (
+const CategoryList = ({ history, categories, posts, createPost, votePost }) => (
   <div>
 
     <h1>Categories</h1>
@@ -16,6 +16,7 @@ const CategoryList = ({ categories, posts, createPost, votePost }) => (
     </ul>
     <hr />
     <PostList
+      history={history}
       categories={categories}
       posts={posts}
       createPost={createPost}

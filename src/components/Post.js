@@ -211,13 +211,13 @@ Post.propTypes = {
   history: PropTypes.object.isRequired,
   isListItem: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,
-  udpatePost: PropTypes.func.isRequired,
-  votePost: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
-  createComment: PropTypes.func.isRequired,
-  updateComment: PropTypes.func.isRequired,
-  voteComment: PropTypes.func.isRequired,
-  deleteComment: PropTypes.func.isRequired,
+  udpatePost: PropTypes.func,
+  votePost: PropTypes.func,
+  deletePost: PropTypes.func,
+  createComment: PropTypes.func,
+  updateComment: PropTypes.func,
+  voteComment: PropTypes.func,
+  deleteComment: PropTypes.func,
 };
 
 export default Post;
