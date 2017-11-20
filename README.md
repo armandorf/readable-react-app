@@ -10,12 +10,15 @@ This repository contains a local backend development server which needs to be us
 
 To run this project locally, clone or fork this repository and run the following commands:
 ```sh
+# Install packages and start back-end server
 $ cd readable-react-app
-$ npm install
-$ cd api-server
+$ cd api-server 
 $ npm install
 $ node server.js
-$ cd ..
+
+# Here you will have to open another bash instance in order to run the front-end server
+$ cd readable-react-app
+$ npm install
 $ npm start
 ```
 
